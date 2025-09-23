@@ -3,224 +3,185 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agenorwoth Lleyton Adrian - Portfolio</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <title>Lleyton Adrian | Graphic & UI/UX Designer</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space%20Grotesk:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
 </head>
 <body>
     <div class="loading-overlay" id="loading">
         <div class="spinner"></div>
     </div>
-
-    <nav>
-        <div class="container">
-            <div class="logo">LLEY TONN</div>
+    <!-- Navigation -->
+    <header>
+        <nav>
+            <div class="logo">Lleyton Adrian</div>
             <ul class="nav-links">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#about">About</a></li>
-                <li><a href="#services">Services</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#work">Work</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
-        </div>
-    </nav>
+            <div class="social-icons">
+                <a href="https://github.com/lley-tonn" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://twitter.com/AdrianLleyton" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="https://instagram.com/lley_tonn" target="_blank"><i class="fab fa-instagram"></i></a>
+            </div>
+            <div class="mobile-menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </nav>
+    </header>
 
-    <section class="hero" id="home">
+    <!-- Home Section -->
+    <section id="home">
         <div class="hero-content">
-            <h1>Agenorwoth Lleyton Adrian</h1>
-            <p class="subtitle">Graphics Designer • Frontend Developer • UI/UX Specialist</p>
-            <p class="description">
-                Creative professional with over 3 years of experience in IT management and graphical design. 
-                Specializing in creating visually stunning web and desktop applications with artistic flair.
+            <h1>Lleyton Adrian | Graphic & UI/UX Designer</h1>
+            <h2>Crafting visually stunning and user-friendly digital experiences.</h2>
+            <a href="#work" class="cta-button">View My Work</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <h2>About Me</h2>
+        <div class="about-content">
+            <p>
+                I'm Lleyton Adrian, a dedicated <strong>graphics designer</strong> with over three years of experience specializing in <strong>IT management</strong> at Binaries Company.
             </p>
-            <div class="cta-buttons">
-                <a href="#contact" class="btn btn-primary">
-                    <i class="fas fa-envelope"></i>
-                    Get In Touch
-                </a>
-                <a href="https://github.com/lley-tonn" target="_blank" class="btn btn-secondary">
-                    <i class="fab fa-github"></i>
-                    View GitHub
-                </a>
-            </div>
+            <p>
+                Based in Kampala, Uganda, I excel at implementing effective IT strategies on both local and global scales.
+            </p>
+            <p>
+                My greatest strength is <strong>graphical awareness</strong>, which allows me to artistically design compelling web and desktop applications.
+            </p>
+            <p>
+                My passion lies in blending technical expertise with creative design to build products that are both functional and beautiful.
+            </p>
         </div>
     </section>
 
-    <section class="about" id="about">
-        <div class="container">
-            <h2 class="section-title">About Me</h2>
-            <div class="about-content">
-                <div class="about-image">
-                    <i class="fas fa-user"></i>
-                </div>
-                <div class="about-text">
-                    <h3>Creative Designer & Developer</h3>
-                    <p>
-                        Based in the vibrant city of Kampala, Uganda, I bring over 3 years of specialized experience 
-                        in graphics design and IT management. My journey at Binaries company has equipped me with 
-                        the expertise to implement effective IT strategies at both local and global levels.
-                    </p>
-                    <p>
-                        My greatest strength lies in graphical awareness, which enables me to artistically design 
-                        exceptional web and desktop applications. I combine technical proficiency with creative 
-                        vision to deliver solutions that are both functional and visually compelling.
-                    </p>
-                    <div class="skills">
-                        <span class="skill-tag">Graphics Design</span>
-                        <span class="skill-tag">Frontend Development</span>
-                        <span class="skill-tag">UI/UX Design</span>
-                        <span class="skill-tag">IT Management</span>
-                        <span class="skill-tag">Web Applications</span>
-                        <span class="skill-tag">Desktop Applications</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="services" id="services">
-        <div class="container">
-            <h2 class="section-title">My Services</h2>
-            <div class="services-grid">
-                <div class="service-card">
+    <!-- Skills Section -->
+    <section id="skills">
+        <h2>Skills</h2>
+        <div class="skills-grid">
+            <div class="skill-card" style="--i: 1;">
+                <div class="skill-icon">
                     <i class="fas fa-palette"></i>
-                    <h3>Graphics Design</h3>
-                    <p>
-                        Creating visually stunning graphics that communicate your brand message effectively. 
-                        From logos to complex illustrations, I bring artistic vision to every project.
-                    </p>
                 </div>
-                <div class="service-card">
-                    <i class="fas fa-code"></i>
-                    <h3>Frontend Development</h3>
-                    <p>
-                        Building responsive, interactive websites and web applications using modern 
-                        technologies. Clean code meets beautiful design for optimal user experiences.
-                    </p>
-                </div>
-                <div class="service-card">
+                <h3>Graphics Design</h3>
+                <p>Illustration, branding, and print design.</p>
+            </div>
+            <div class="skill-card" style="--i: 2;">
+                <div class="skill-icon">
                     <i class="fas fa-mobile-alt"></i>
-                    <h3>UI/UX Design</h3>
-                    <p>
-                        Designing intuitive user interfaces and seamless user experiences that engage 
-                        and delight. Every interaction is carefully crafted for maximum impact.
-                    </p>
                 </div>
-                <div class="service-card">
-                    <i class="fas fa-cogs"></i>
-                    <h3>IT Management</h3>
-                    <p>
-                        Implementing effective IT strategies and solutions for businesses of all sizes. 
-                        From local operations to global implementations, I ensure technology serves your goals.
-                    </p>
+                <h3>UI/UX Design</h3>
+                <p>User research, wireframing, prototyping, and user testing.</p>
+            </div>
+            <div class="skill-card" style="--i: 3;">
+                <div class="skill-icon">
+                    <i class="fas fa-code"></i>
                 </div>
-                <div class="service-card">
-                    <i class="fas fa-desktop"></i>
-                    <h3>Desktop Applications</h3>
-                    <p>
-                        Developing powerful desktop applications with intuitive interfaces and robust 
-                        functionality. Combining technical excellence with artistic design principles.
-                    </p>
+                <h3>Frontend Development</h3>
+                <p>HTML, CSS, JavaScript, and responsive design.</p>
+            </div>
+            <div class="skill-card" style="--i: 4;">
+                <div class="skill-icon">
+                    <i class="fas fa-server"></i>
                 </div>
-                <div class="service-card">
-                    <i class="fas fa-globe"></i>
-                    <h3>Web Applications</h3>
-                    <p>
-                        Creating dynamic web applications that scale with your business needs. 
-                        Modern architectures meet creative design for exceptional digital experiences.
-                    </p>
+                <h3>IT Management</h3>
+                <p>Strategic planning and implementation.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Work Section -->
+    <section id="work">
+        <h2>Work</h2>
+        <div class="project-grid">
+            <div class="project-card" style="--i: 1;">
+                <div class="project-image">
+                    <i class="fas fa-paint-brush"></i>
+                </div>
+                <div class="project-info">
+                    <h3>Project 1: Brand Identity Design</h3>
+                    <p>Complete brand identity package including logo, color palette, and marketing materials for a tech startup.</p>
+                    <a href="#" class="project-link">View Demo</a>
+                </div>
+            </div>
+            <div class="project-card" style="--i: 2;">
+                <div class="project-image">
+                    <i class="fas fa-laptop"></i>
+                </div>
+                <div class="project-info">
+                    <h3>Project 2: E-Commerce Platform UI</h3>
+                    <p>Modern and intuitive user interface design for an online shopping platform with focus on user experience.</p>
+                    <a href="#" class="project-link">Case Study</a>
+                </div>
+            </div>
+            <div class="project-card" style="--i: 3;">
+                <div class="project-image">
+                    <i class="fas fa-mobile"></i>
+                </div>
+                <div class="project-info">
+                    <h3>Project 3: Mobile App Design</h3>
+                    <p>Complete mobile application design for iOS and Android with seamless user flow and modern aesthetics.</p>
+                    <a href="#" class="project-link">View Demo</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="contact" id="contact">
-        <div class="container">
-            <h2 class="section-title">Get In Touch</h2>
-            <div class="contact-content">
-                <div class="contact-info">
-                    <h3 style="margin-bottom: 2rem; color: var(--light-accent);">Contact Information</h3>
-                    <div class="contact-item">
-                        <i class="fas fa-envelope"></i>
-                        <div>
-                            <strong>Email</strong><br>
-                            <a href="mailto:lagenorwoth@gmail.com">lagenorwoth@gmail.com</a>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-phone"></i>
-                        <div>
-                            <strong>Phone</strong><br>
-                            <a href="tel:+256783164154">+256 783164154</a>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <div>
-                            <strong>Location</strong><br>
-                            Kampala, Uganda
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fab fa-github"></i>
-                        <div>
-                            <strong>GitHub</strong><br>
-                            <a href="https://github.com/lley-tonn" target="_blank">github.com/lley-tonn</a>
-                        </div>
-                    </div>
-                    
-                    <div class="social-links">
-                        <a href="https://twitter.com/AdrianLleyton" target="_blank" class="social-link">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a href="https://instagram.com/lley_tonn" target="_blank" class="social-link">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        <a href="https://github.com/lley-tonn" target="_blank" class="social-link">
-                            <i class="fab fa-github"></i>
-                        </a>
-                        <a href="mailto:lagenorwoth@gmail.com" class="social-link">
-                            <i class="fas fa-envelope"></i>
-                        </a>
-                    </div>
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2>Contact</h2>
+        <div class="contact-content">
+            <div class="contact-info">
+                <p>Feel free to connect with me!</p>
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <a href="mailto:lagenorwoth@gmail.com">lagenorwoth@gmail.com</a>
                 </div>
-
-                <div class="contact-form">
-                    <h3 style="margin-bottom: 2rem; color: var(--light-accent);">Send a Message</h3>
-                    <form id="contactForm">
-                        <div class="form-group">
-                            <label for="name">Name</label>
-                            <input type="text" id="name" name="name" placeholder="Your Name" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" id="email" name="email" placeholder="your.email@example.com" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="subject">Subject</label>
-                            <input type="text" id="subject" name="subject" placeholder="Project Inquiry">
-                        </div>
-                        <div class="form-group">
-                            <label for="message">Message</label>
-                            <textarea id="message" name="message" rows="5" placeholder="Tell me about your project..." required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary" style="width: 100%;">
-                            <i class="fas fa-paper-plane"></i>
-                            Send Message
-                        </button>
-                    </form>
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <a href="tel:+256783164154">+256 783164154</a>
                 </div>
+                <div class="contact-item">
+                    <i class="fab fa-github"></i>
+                    <a href="https://github.com/lley-tonn" target="_blank">github.com/lley-tonn</a>
+                </div>
+                <div class="contact-item">
+                    <i class="fab fa-twitter"></i>
+                    <a href="https://twitter.com/AdrianLleyton" target="_blank">@AdrianLleyton</a>
+                </div>
+                <div class="contact-item">
+                    <i class="fab fa-instagram"></i>
+                    <a href="https://instagram.com/lley_tonn" target="_blank">lley_tonn</a>
+                </div>
+            </div>
+            <div class="contact-form">
+                <form>
+                    <div class="form-group">
+                        <input type="text" placeholder="Your Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" placeholder="Your Email" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea placeholder="Your Message" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Send Message</button>
+                </form>
             </div>
         </div>
     </section>
 
-    <footer>
-        <div class="container">
-            <p>&copy; 2024 Agenorwoth Lleyton Adrian. All rights reserved. | Designed with passion in Kampala, Uganda</p>
-        </div>
-    </footer>
-
-    <script src="/script.js">    </script>
+    <script src="/script.js"></script>
 </body>
 </html>
