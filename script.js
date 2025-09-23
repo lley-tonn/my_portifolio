@@ -1,4 +1,4 @@
-<script>
+
         // Mobile menu toggle
         const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
         const navLinks = document.querySelector('.nav-links');
@@ -81,4 +81,3 @@
                 heroContent.style.opacity = 1 - (scrolled / window.innerHeight);
             }
         });
-    </script>
