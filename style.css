@@ -230,6 +230,25 @@ section {
 section h2 {
     font-family: 'Space Grotesk', sans-serif;
     font-size: 3rem;
+    margin-bottom: 10px;
+    text-align: center;
+    position: relative;
+    opacity: 0;
+    animation: fadeInUp 0.8s ease forwards;
+}
+
+/*section h2::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 2px;
+    background: var(--orange);
+}*/
+
+.hero-content h3 {
     margin-bottom: 50px;
     text-align: center;
     position: relative;
@@ -237,7 +256,7 @@ section h2 {
     animation: fadeInUp 0.8s ease forwards;
 }
 
-section h2::after {
+.hero-content h3::after {
     content: '';
     position: absolute;
     bottom: -15px;
@@ -502,8 +521,8 @@ section h2::after {
     background: linear-gradient(
         to right,
         black,                 /* fade in from black */
-        var(--orange-hover) 20%, /* solid orange area */
-        var(--orange-hover) 80%, /* solid orange area */
+        rgba(255, 165, 0, 0.8) 20%,  /* semi-transparent orange */
+        rgba(255, 165, 0, 0.8) 80%,/* solid orange area */
         black                  /* fade out to black */
     );
     color: var(--black);
