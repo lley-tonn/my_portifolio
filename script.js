@@ -20,6 +20,96 @@ document.querySelectorAll('.nav-links a').forEach(link => {
     });
 });
 
+
+// Enhanced hover effects and 3D interactions
+document.addEventListener('DOMContentLoaded', function() {
+    const cards = document.querySelectorAll('.language-card');
+    const grid = document.querySelector('.languages-grid');
+
+    // Add dynamic particle generation
+    function createParticle() {
+        const particle = document.createElement('div');
+        particle.className = 'wave-particle';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.animationDelay = '-' + Math.random() * 8 + 's';
+        document.body.appendChild(particle);
+
+        // Remove particle after animation
+        setTimeout(() => {
+            if (particle.parentNode) {
+                particle.parentNode.removeChild(particle);
+            }
+        }, 8000);
+    }
+
+    // Generate particles periodically
+    setInterval(createParticle, 2000);
+
+    // Enhanced mouse interaction
+    cards.forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            this.style.zIndex = '10';
+            
+            // Add ripple effect
+            const ripple = document.createElement('div');
+            ripple.style.position = 'absolute';
+            ripple.style.borderRadius = '50%';
+            ripple.style.background = 'rgba(255, 140, 0, 0.3)';
+            ripple.style.transform = 'scale(0)';
+            ripple.style.animation = 'ripple 0.6s linear';
+            ripple.style.left = '50%';
+            ripple.style.top = '50%';
+            ripple.style.width = '20px';
+            ripple.style.height = '20px';
+            ripple.style.marginLeft = '-10px';
+            ripple.style.marginTop = '-10px';
+            
+            this.appendChild(ripple);
+            
+            setTimeout(() => {
+                if (ripple.parentNode) {
+                    ripple.parentNode.removeChild(ripple);
+                }
+            }, 600);
+        });
+
+        card.addEventListener('mouseleave', function() {
+            this.style.zIndex = '1';
+        });
+
+        // Add tilt effect based on mouse position
+        card.addEventListener('mousemove', function(e) {
+            const rect = this.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            const rotateX = (y - centerY) / 10;
+            const rotateY = (centerX - x) / 10;
+            
+            this.style.transform = `translateY(-20px) scale(1.05) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        });
+
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = '';
+        });
+    });
+
+    // Add CSS for ripple animation
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes ripple {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+    `;
+    document.head.appendChild(style);
+});
+
        
 window.addEventListener("load", function () {
 setTimeout(function () {
@@ -28,7 +118,7 @@ setTimeout(function () {
 
     // remove from DOM after fade
     setTimeout(() => loader.style.display = "none", 800);
-}, 5000); // 5 seconds
+}, 3000); // 5 seconds
 });
 
 
