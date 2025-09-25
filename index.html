@@ -13,6 +13,7 @@
     
 </head>
 <body>
+    <div id="particles-canvas"></div>
 
     <div class="wave-particle"></div>
     <div class="wave-particle"></div>
@@ -147,11 +148,12 @@
         
     </div>
 
+    <!--<div class="wave-particle"></div>
     <div class="wave-particle"></div>
     <div class="wave-particle"></div>
     <div class="wave-particle"></div>
     <div class="wave-particle"></div>
-    <div class="wave-particle"></div>
+-->
 </section>
 
     <!-- Work Section -->
@@ -247,5 +249,36 @@
     <script src="https://cdn.vercel-insights.com/v1/script.js" defer></script>
     <!-- Vercel Analytics -->
 <script defer src="https://cdn.vercel-insights.com/v1/analytics/script.js"></script>
+<script>
+    const container = document.querySelector('.wave-particle');
+    const totalParticles = 50; // number of particles
+    
+    for (let i = 0; i < totalParticles; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('wave-particle');
+    
+        // Random size
+        const size = Math.random() * 4 + 2; // 2px to 5px
+        particle.style.setProperty('--size', size + 'px');
+    
+        // Random horizontal start position
+        const xStart = Math.random() * 100 + 'vw';
+        particle.style.setProperty('--x-start', xStart);
+    
+        // Random horizontal drift
+        const xDrift = (Math.random() * 200 - 100) + 'px'; // -100px to +100px
+        particle.style.setProperty('--x-drift', xDrift);
+    
+        // Random animation duration
+        const duration = Math.random() * 8 + 5; // 5s to 13s
+        particle.style.animationDuration = duration + 's';
+    
+        // Random animation delay
+        const delay = Math.random() * 10;
+        particle.style.animationDelay = delay + 's';
+    
+        container.appendChild(particle);
+    }
+    </script>
 </body>
 </html>
