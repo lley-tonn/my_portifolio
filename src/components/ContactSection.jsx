@@ -23,33 +23,28 @@ export const ContactSection = () => {
   const contactLinks = [
     {
       icon: faEnvelope,
-      label: "Email",
       href: "mailto:lagenorwoth@gmail.com",
       text: "lagenorwoth@gmail.com",
     },
     {
       icon: faPhone,
-      label: "Phone",
       href: "tel:+256783164154",
       text: "+256 783 164 154",
     },
     {
       icon: faGithub,
-      label: "GitHub",
       href: "https://github.com/lley-tonn",
-      text: "github.com/lley-tonn",
+      text: "lley-tonn",
       external: true,
     },
     {
       icon: faTwitter,
-      label: "Twitter",
       href: "https://twitter.com/AdrianLleyton",
-      text: "@AdrianLleyton",
+      text: "AdrianLleyton",
       external: true,
     },
     {
       icon: faInstagram,
-      label: "Instagram",
       href: "https://instagram.com/lley_tonn",
       text: "lley_tonn",
       external: true,
