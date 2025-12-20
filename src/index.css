@@ -18,7 +18,6 @@
   --animate-fade-in-delay-2: fade-in 0.7s ease-out 0.4s forwards;
   --animate-fade-in-delay-3: fade-in 0.7s ease-out 0.6s forwards;
   --animate-fade-in-delay-4: fade-in 0.7s ease-out 0.8s forwards;
-  --animate-meteor: meteor 5s linear infinite;
 
   @keyframes float {
     0%, 100% { transform: translateY(0); }
@@ -35,11 +34,6 @@
     to { opacity: 1; transform: translateY(0); }
   }
 
-  @keyframes meteor {
-    0% { transform: rotate(215deg) translateX(0); opacity: 1; }
-    70% { opacity: 1; }
-    100% { transform: rotate(215deg) translateX(-500px); opacity: 0; }
-  }
 }
 
 @layer base {
@@ -57,7 +51,7 @@
 
   .dark {
     /* 🌚 Dark Mode */
-    --background: 0 0% 6%;             /* #0a0a0a - darkest gray background */
+    --background: 0 0% 0%;              /* #000000 - pure black background */
     --foreground: 0 0% 100%;           /* white text */
 
     --card: 0 0% 10%;                  /* #1a1a1a - dark gray cards/nav */
@@ -78,6 +72,14 @@
   body {
     @apply bg-background text-foreground transition-colors duration-300;
     font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  .dark body {
+    background-color: #000000 !important;
+  }
+
+  .dark #root {
+    background-color: #000000 !important;
   }
 }
 
@@ -117,17 +119,6 @@
   @apply px-6 py-4 rounded-full bg-primary text-primary-foreground font-medium 
          transition-all duration-300 hover:shadow-[0_0_10px_rgb(255,107,53,0.5)]
          hover:scale-105 active:scale-95;
-}
-
-/* 🌟 Star and Meteor effects (white glow retained) */
-@utility star {
-  @apply absolute rounded-full bg-white;
-  box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.4);
-}
-
-@utility meteor {
-  @apply absolute bg-linear-to-r from-white via-white to-transparent rounded-full;
-  box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.3);
 }
 
 #root {
