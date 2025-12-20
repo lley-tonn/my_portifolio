@@ -87,14 +87,16 @@ export const ContactSection = () => {
             Get in <span className="text-primary">Touch</span>
           </h2>
 
+           <p className="text-lg text-foreground/80">
+                Feel free to connect with me! I'm always open to new
+                opportunities and collaborations.
+            </p>
+
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             {/* Contact Info */}
             <div className="space-y-8">
-              <p className="text-lg text-foreground/80">
-                Feel free to connect with me! I'm always open to new
-                opportunities and collaborations.
-              </p>
-
+             
               <div className="space-y-4">
                 {contactLinks.map((link, index) => (
                   <a
