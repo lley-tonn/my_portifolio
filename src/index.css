@@ -47,6 +47,21 @@
     --primary-foreground: 0 0% 100%;   /* white text on orange */
 
     --border: 0 0% 80%;                /* #ccc border */
+    /* ---------- Design tokens (light & shared) ---------- */
+    /* Neutral defaults for light mode to prevent dark-mode leakage */
+    --token-bg-base: transparent;
+    --token-reflect-color: 255,255,255;
+    --token-accent-orange: 255,107,53;
+    --token-reflect-opacity-weak: 0;   /* disabled in light mode */
+    --token-reflect-opacity-mid: 0;    /* disabled in light mode */
+    --token-reflect-opacity-strong: 0; /* disabled in light mode */
+    --token-reflect-spread-large: 140% 60%;
+    --token-reflect-spread-mid: 100% 50%;
+    --token-reflect-spread-small: 80% 40%;
+    --token-layer-bg: -1;
+    --token-layer-neuron: 0;
+    --token-layer-content: 1;
+    --token-layer-navbar: 9999;
   }
 
   .dark {
@@ -59,6 +74,13 @@
     --primary-foreground: 0 0% 100%;   /* white text */
 
     --border: 0 0% 16%;                /* #2a2a2a border */
+    /* Dark-mode active tokens (only apply when .dark is present) */
+    --token-bg-base: #000000;
+    --token-reflect-opacity-weak: 0.006;
+    --token-reflect-opacity-mid: 0.012;
+    --token-reflect-opacity-strong: 0.02;
+    /* Orange accent used sparingly in reflections (alpha applied where used) */
+    --token-accent-orange-alpha: 0.06;
   }
 
   * {
@@ -76,10 +98,54 @@
 
   .dark body {
     background-color: #000000 !important;
+    position: relative;
   }
 
   .dark #root {
     background-color: #000000 !important;
+  }
+
+  /* Dark mode reflective depth background - refined to match reference
+     - Pure black base retained (#000000)
+     - Multiple very-low-opacity, large radial gradients layered to simulate
+       soft reflections on polished black glass
+     - No noise, no animation, purely CSS gradients
+  */
+  .dark body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: var(--token-layer-bg);
+    pointer-events: none;
+    /* Token-driven reflective layers. All color/opacity/size controlled via tokens above.
+       Layers are ordered from largest & weakest to smaller & slightly stronger to create
+       soft, ambient reflections resembling polished black glass.
+    */
+    background:
+      /* very large vertical ambient wash */
+      radial-gradient(closest-side at 50% 55%, rgba(var(--token-reflect-color), var(--token-reflect-opacity-weak)) 0%, rgba(var(--token-reflect-color), calc(var(--token-reflect-opacity-weak) / 2)) 25%, transparent 60%),
+      /* upper-mid diffuse reflection with slight warm tint */
+      radial-gradient( var(--token-reflect-spread-mid) at 50% 12%, rgba(var(--token-reflect-color), var(--token-reflect-opacity-mid)) 0%, rgba(var(--token-reflect-color), calc(var(--token-reflect-opacity-mid) / 2)) 20%, rgba(var(--token-accent-orange), calc(var(--token-accent-orange-alpha) * 0.55)) 48%, transparent 60%),
+      /* subtle lower soft pool to add depth */
+      radial-gradient(120% 70% at 40% 82%, rgba(var(--token-reflect-color), var(--token-reflect-opacity-mid)) 0%, rgba(var(--token-reflect-color), calc(var(--token-reflect-opacity-mid) / 2)) 30%, rgba(var(--token-accent-orange), calc(var(--token-accent-orange-alpha) * 0.35)) 55%, transparent 75%),
+      /* gentle top-to-bottom soft falloff */
+      linear-gradient(180deg, rgba(var(--token-reflect-color), calc(var(--token-reflect-opacity-weak) / 1.1)), transparent 35%),
+      /* base black */
+      var(--token-bg-base);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    background-blend-mode: normal;
+  }
+
+  /* Neuron network layer: sits above reflective gradients but below page content (dark-mode only) */
+  .dark .neuron-background {
+    position: fixed;
+    inset: 0;
+    z-index: var(--token-layer-neuron);
+    pointer-events: none;
+    opacity: 0.18; /* keep neuron pattern subtle and secondary */
+    mix-blend-mode: overlay;
   }
 }
 
@@ -127,3 +193,64 @@
   padding: 0;
   text-align: center;
 }
+
+/* ==========================
+   Glassmorphism Navbar Styles
+   ========================== */
+.glass-navbar {
+  position: fixed;
+  left: 50%;
+  right: auto;
+  top: 1rem;
+  z-index: 9999;
+  display: block;
+  width: clamp(360px, 78%, 1100px);
+  transform: translateX(-50%);
+  border-radius: 20px;
+  padding: 0.9rem 1rem;
+  backdrop-filter: blur(8px) saturate(130%);
+  -webkit-backdrop-filter: blur(8px) saturate(130%);
+  background: linear-gradient(180deg, rgba(255,255,255,0.55), rgba(255,255,255,0.30));
+  border: 0.6px solid rgba(255,107,53,0.20); /* very thin, faint orange border (20% opacity) */
+  box-shadow: 0 8px 22px rgba(2,6,23,0.14);
+  transition: transform 160ms ease, box-shadow 180ms ease, backdrop-filter 220ms ease, padding 180ms ease;
+  pointer-events: auto;
+}
+
+.glass-navbar--scrolled {
+  padding: 0.65rem 1rem;
+  transform: translateX(-50%) translateY(-2px);
+  box-shadow: 0 12px 30px rgba(2,6,23,0.20);
+}
+
+.glass-navbar:hover {
+  transform: translateX(-50%) translateY(-3px);
+  box-shadow: 0 18px 40px rgba(2,6,23,0.22);
+}
+
+.glass-navbar::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  pointer-events: none;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.18);
+}
+
+/* Dark mode adjustments */
+.dark .glass-navbar {
+  background: linear-gradient(180deg, rgba(10,10,10,0.48), rgba(20,20,20,0.20));
+  border: 0.9px solid rgba(255,107,53,0.20); /* 20% opacity on dark as requested */
+  box-shadow: 0 14px 36px rgba(0,0,0,0.6);
+}
+.dark .glass-navbar::before {
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.06);
+}
+
+/* Inner layout tweaks to keep content readable */
+.glass-navbar .container { display:flex; align-items:center; justify-content:space-between; }
+.glass-navbar a { transition: color 160ms ease, opacity 160ms ease; }
+.glass-navbar a:hover { opacity: 0.95; }
+
+/* Mobile menu overlay should remain above the navbar when open */
+.mobile-menu-overlay { z-index: 10010; }

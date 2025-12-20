@@ -1,36 +1,14 @@
 import { Moon, Sun } from "lucide-react";
-import { useEffect, useState } from "react";
-import {cn} from "@/lib/utils";
+import { useTheme } from "@/lib/useTheme";
+import { cn } from "@/lib/utils";
 
 export const ThemeToggle = () => {
-    const [isDarkMode, setIsDarkMode] = useState(false);
-
-    useEffect(() => {
-        const storedTheme = localStorage.getItem("theme")
-        if (storedTheme === "dark") {
-            setIsDarkMode(true)
-            document.documentElement.classList.add("dark");
-        } else {
-            setIsDarkMode(false)
-            document.documentElement.classList.remove("dark");
-        }
-    },[]);
-
-    const toggleTheme = () =>{
-        if (isDarkMode) {
-            document.documentElement.classList.remove("dark");
-            localStorage.setItem("theme", "light")
-            setIsDarkMode(false)
-        } else {
-            document.documentElement.classList.add("dark");
-            localStorage.setItem("theme", "dark")
-            setIsDarkMode(true)
-        }
-    }
+    const { isDarkMode, toggleTheme, isHydrated } = useTheme();
 
     return (
         <button 
             onClick={toggleTheme}
+            disabled={!isHydrated}
             className={cn(
                 "fixed bottom-6 right-6 z-50 p-3.5 rounded-full",
                 "bg-background/80 dark:bg-background/60 backdrop-blur-xl",
@@ -38,7 +16,8 @@ export const ThemeToggle = () => {
                 "shadow-xl hover:shadow-2xl transition-all duration-300",
                 "hover:scale-110 active:scale-95",
                 "focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2",
-                "dark:focus:ring-offset-black"
+                "dark:focus:ring-offset-black",
+                !isHydrated && "opacity-50 cursor-not-allowed"
             )}
             aria-label={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
         > 

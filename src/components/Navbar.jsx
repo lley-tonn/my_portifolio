@@ -30,19 +30,14 @@ export const Navbar = () => {
     }, [])
     return (
         <nav className={cn(
-            "fixed top-0 left-0 right-0 z-40 transition-all duration-300",
-            "bg-background/60 dark:bg-background/40 backdrop-blur-xl",
-            "border-b border-border/30 dark:border-border/20",
-            "rounded-b-2xl mx-4 mt-4",
-            "shadow-xl dark:shadow-2xl",
-            "backdrop-saturate-150",
-            isScrolled ? "py-3" : "py-4"
+            "glass-navbar",
+            isScrolled ? "glass-navbar--scrolled" : ""
         )}>
 
             <div className="container flex items-center justify-between">
                 <a href="#hero" className="text-xl font-bold text-primary flex items-center">
                     <span className="relative z-10 ">
-                        <span className="text-glow text-foreground">lley-</span> tonn
+                        <span className="text-glow text-foreground">lley-</span>tonn
                     </span>
                 </a>
                 {/* Desktop nav*/}
@@ -67,7 +62,7 @@ export const Navbar = () => {
                 </button>
 
 
-                <div className={cn("fixed inset-0 bg-background/95 backdrop-blur-lg flex flex-col items-center justify-center z-50",
+                <div className={cn("fixed inset-0 bg-background/95 backdrop-blur-lg flex flex-col items-center justify-center mobile-menu-overlay",
                     "transition-all duration-300 md:hidden",
                     isMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
                 )}>

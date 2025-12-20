@@ -5,6 +5,26 @@
     <link rel="icon" type="image/svg+xml" href="/ala.svg?v=1" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Agenorwoth Lleyton Adrian</title>
+    <!-- Theme initialization script to prevent flash of unstyled content -->
+    <script>
+      // Apply stored theme or system preference before page renders
+      (function() {
+        const storedTheme = localStorage.getItem("theme");
+        let shouldBeDark = false;
+
+        if (storedTheme !== null) {
+          // User has a stored preference
+          shouldBeDark = storedTheme === "dark";
+        } else {
+          // No stored preference; use system preference
+          shouldBeDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        }
+
+        if (shouldBeDark) {
+          document.documentElement.classList.add("dark");
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>
