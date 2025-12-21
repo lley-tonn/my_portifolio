@@ -4,14 +4,13 @@ import { Navbar } from "../components/Navbar";
 import { HeroSection } from "../components/HeroSection";
 import { AboutmeSection } from "../components/AboutmeSection";
 import { SkillsSection } from "../components/SkilsSection";
-import { LanguagesSection } from "../components/LanguageSection";
 import { ProjectsSection } from "../components/ProjectsSection";
 import { ContactSection } from "../components/ContactSection";
 import { FooterSection } from "../components/FooterSection";
 
 export const Home = () => {
     return (
-        <div className="min-h-screen bg-background dark:bg-black text-foreground overflow-x-hidden"> 
+        <div className="min-h-screen text-foreground overflow-x-hidden"> 
             {/* Theme Toggle*/}
             <ThemeToggle />
 
@@ -26,7 +25,6 @@ export const Home = () => {
                 <HeroSection/>
                 <AboutmeSection />
                 <SkillsSection />
-                <LanguagesSection />
                 <ProjectsSection />
                 <ContactSection />
             </main>

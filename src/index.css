@@ -38,49 +38,75 @@
 
 @layer base {
   :root {
-    /* 🌞 Light Mode */
+    /* 🌞 Light Mode Color Tokens */
     --background: 0 0% 100%;           /* white */
     --foreground: 0 0% 13%;            /* #222 for text */
 
-    --card: 0 0% 100%;                 /* white */
+    --card: 0 0% 94%;                  /* #f0f0f0 - light gray cards */
     --primary: 20 100% 60%;            /* #ff6b35 (orange) */
     --primary-foreground: 0 0% 100%;   /* white text on orange */
 
     --border: 0 0% 80%;                /* #ccc border */
-    /* ---------- Design tokens (light & shared) ---------- */
-    /* Neutral defaults for light mode to prevent dark-mode leakage */
-    --token-bg-base: transparent;
-    --token-reflect-color: 255,255,255;
-    --token-accent-orange: 255,107,53;
-    --token-reflect-opacity-weak: 0;   /* disabled in light mode */
-    --token-reflect-opacity-mid: 0;    /* disabled in light mode */
-    --token-reflect-opacity-strong: 0; /* disabled in light mode */
+
+    /* ═══════════════════════════════════════════════════════════════
+       DESIGN TOKENS: Reflective Surface System
+       ═══════════════════════════════════════════════════════════════
+       These tokens control all background effects and must be the
+       single source of truth for theming. Light mode disables all
+       reflections to maintain clean, flat appearance.
+    */
+
+    /* Color Tokens */
+    --token-bg-base: #f5f5f5;                /* Base background color (light gray) */
+    --token-reflect-color: 255,255,255;      /* Reflection highlight base (RGB) */
+    --token-accent-orange: 255,107,53;       /* Brand orange (RGB) */
+
+    /* Intensity Tokens - DISABLED in light mode */
+    --token-reflect-opacity-weak: 0;         /* Largest, most diffuse reflections */
+    --token-reflect-opacity-mid: 0;          /* Mid-range reflections */
+    --token-reflect-opacity-strong: 0;       /* Smallest, most focused reflections */
+    --token-accent-orange-alpha: 0;          /* Orange tint intensity */
+
+    /* Spread Tokens - Define gradient sizes */
     --token-reflect-spread-large: 140% 60%;
     --token-reflect-spread-mid: 100% 50%;
     --token-reflect-spread-small: 80% 40%;
-    --token-layer-bg: -1;
-    --token-layer-neuron: 0;
-    --token-layer-content: 1;
-    --token-layer-navbar: 9999;
+
+    /* Elevation Tokens - Z-index layer system */
+    --token-layer-bg: -1;                    /* Reflective background layer */
+    --token-layer-neuron: 0;                 /* Neuron network pattern */
+    --token-layer-content: 1;                /* Main content */
+    --token-layer-navbar: 9999;              /* Floating navbar */
   }
 
   .dark {
-    /* 🌚 Dark Mode */
+    /* 🌚 Dark Mode Color Tokens */
     --background: 0 0% 0%;              /* #000000 - pure black background */
-    --foreground: 0 0% 100%;           /* white text */
+    --foreground: 0 0% 100%;            /* white text */
 
-    --card: 0 0% 10%;                  /* #1a1a1a - dark gray cards/nav */
-    --primary: 20 100% 60%;            /* #ff6b35 (brand orange) */
-    --primary-foreground: 0 0% 100%;   /* white text */
+    --card: 0 0% 10%;                   /* #1a1a1a - dark gray cards/nav */
+    --primary: 20 100% 60%;             /* #ff6b35 (brand orange) */
+    --primary-foreground: 0 0% 100%;    /* white text */
 
-    --border: 0 0% 16%;                /* #2a2a2a border */
-    /* Dark-mode active tokens (only apply when .dark is present) */
+    --border: 0 0% 16%;                 /* #2a2a2a border */
+
+    /* ═══════════════════════════════════════════════════════════════
+       DARK MODE: Premium Reflective Surface Tokens
+       ═══════════════════════════════════════════════════════════════
+       Controlled intensity values to create subtle, expensive-feeling
+       reflections on black glass. Orange accent barely perceptible.
+    */
+
+    /* Color Tokens - Dark mode overrides */
     --token-bg-base: #000000;
-    --token-reflect-opacity-weak: 0.006;
-    --token-reflect-opacity-mid: 0.012;
-    --token-reflect-opacity-strong: 0.02;
-    /* Orange accent used sparingly in reflections (alpha applied where used) */
-    --token-accent-orange-alpha: 0.06;
+
+    /* Intensity Tokens - Enhanced for more visible, enticing gradients */
+    --token-reflect-opacity-weak: 0.025;       /* Soft ambient glow */
+    --token-reflect-opacity-mid: 0.045;        /* Mid-range reflections */
+    --token-reflect-opacity-strong: 0.065;     /* More visible highlights */
+
+    /* Orange Accent - Enhanced for better brand presence */
+    --token-accent-orange-alpha: 0.12;         /* Warm tint with stronger presence */
   }
 
   * {
@@ -94,58 +120,127 @@
   body {
     @apply bg-background text-foreground transition-colors duration-300;
     font-feature-settings: "rlig" 1, "calt" 1;
-  }
-
-  .dark body {
-    background-color: #000000 !important;
     position: relative;
+    /* Ensure clean white background in light mode */
+    background-color: var(--token-bg-base);
   }
 
-  .dark #root {
-    background-color: #000000 !important;
-  }
-
-  /* Dark mode reflective depth background - refined to match reference
-     - Pure black base retained (#000000)
-     - Multiple very-low-opacity, large radial gradients layered to simulate
-       soft reflections on polished black glass
-     - No noise, no animation, purely CSS gradients
-  */
-  .dark body::before {
+  /* Light mode: Ensure no pseudo-elements or effects */
+  body::before {
     content: "";
     position: fixed;
     inset: 0;
     z-index: var(--token-layer-bg);
     pointer-events: none;
-    /* Token-driven reflective layers. All color/opacity/size controlled via tokens above.
-       Layers are ordered from largest & weakest to smaller & slightly stronger to create
-       soft, ambient reflections resembling polished black glass.
-    */
+    /* Light mode: transparent, no effects */
+    background: transparent;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     DARK MODE: Premium Reflective Surface Layer
+     ═══════════════════════════════════════════════════════════════
+     Creates controlled reflective depth on pure black base.
+     Simulates light reflecting off polished black glass surface.
+
+     Architecture:
+     - Pure black (#000000) base layer
+     - Multiple extremely-low-opacity radial gradients
+     - Subtle orange accent tint within reflection highlights only
+     - No sharp edges, no visible shapes, no decorative elements
+
+     Constraints:
+     - No noise, no particles, no animation
+     - Reflection must be subtle on first glance
+     - Noticeable only on longer viewing
+     - Never distracting or dominant
+  */
+  .dark body::before {
+    /* All color/opacity/spread values controlled via design tokens */
     background:
-      /* very large vertical ambient wash */
-      radial-gradient(closest-side at 50% 55%, rgba(var(--token-reflect-color), var(--token-reflect-opacity-weak)) 0%, rgba(var(--token-reflect-color), calc(var(--token-reflect-opacity-weak) / 2)) 25%, transparent 60%),
-      /* upper-mid diffuse reflection with slight warm tint */
-      radial-gradient( var(--token-reflect-spread-mid) at 50% 12%, rgba(var(--token-reflect-color), var(--token-reflect-opacity-mid)) 0%, rgba(var(--token-reflect-color), calc(var(--token-reflect-opacity-mid) / 2)) 20%, rgba(var(--token-accent-orange), calc(var(--token-accent-orange-alpha) * 0.55)) 48%, transparent 60%),
-      /* subtle lower soft pool to add depth */
-      radial-gradient(120% 70% at 40% 82%, rgba(var(--token-reflect-color), var(--token-reflect-opacity-mid)) 0%, rgba(var(--token-reflect-color), calc(var(--token-reflect-opacity-mid) / 2)) 30%, rgba(var(--token-accent-orange), calc(var(--token-accent-orange-alpha) * 0.35)) 55%, transparent 75%),
-      /* gentle top-to-bottom soft falloff */
-      linear-gradient(180deg, rgba(var(--token-reflect-color), calc(var(--token-reflect-opacity-weak) / 1.1)), transparent 35%),
-      /* base black */
+      /* Layer 1: Largest, most diffuse vertical ambient wash
+         Creates soft atmospheric depth across viewport */
+      radial-gradient(
+        var(--token-reflect-spread-large) at 50% 50%,
+        rgba(var(--token-reflect-color), var(--token-reflect-opacity-weak)) 0%,
+        rgba(var(--token-reflect-color), calc(var(--token-reflect-opacity-weak) * 0.4)) 30%,
+        transparent 65%
+      ),
+
+      /* Layer 2: Upper reflection with warm orange tint
+         Positioned near top to suggest ambient light source */
+      radial-gradient(
+        var(--token-reflect-spread-mid) at 50% 15%,
+        rgba(var(--token-reflect-color), var(--token-reflect-opacity-mid)) 0%,
+        rgba(var(--token-reflect-color), calc(var(--token-reflect-opacity-mid) * 0.5)) 25%,
+        rgba(var(--token-accent-orange), calc(var(--token-accent-orange-alpha) * 0.6)) 50%,
+        transparent 70%
+      ),
+
+      /* Layer 3: Lower-right soft reflection pool
+         Adds visual balance and depth variation */
+      radial-gradient(
+        115% 65% at 42% 80%,
+        rgba(var(--token-reflect-color), calc(var(--token-reflect-opacity-mid) * 0.9)) 0%,
+        rgba(var(--token-reflect-color), calc(var(--token-reflect-opacity-mid) * 0.45)) 35%,
+        rgba(var(--token-accent-orange), calc(var(--token-accent-orange-alpha) * 0.45)) 58%,
+        transparent 78%
+      ),
+
+      /* Layer 4: Left-side orange accent glow
+         Adds warm visual interest and brand presence */
+      radial-gradient(
+        90% 60% at 10% 50%,
+        rgba(var(--token-accent-orange), calc(var(--token-accent-orange-alpha) * 0.3)) 0%,
+        transparent 60%
+      ),
+
+      /* Layer 5: Diagonal gradient for depth
+         Creates subtle directional lighting */
+      linear-gradient(
+        135deg,
+        rgba(var(--token-reflect-color), calc(var(--token-reflect-opacity-weak) * 0.5)) 0%,
+        transparent 50%
+      ),
+
+      /* Layer 6: Gentle vertical gradient falloff
+         Creates soft top-to-bottom light dissipation */
+      linear-gradient(
+        180deg,
+        rgba(var(--token-reflect-color), calc(var(--token-reflect-opacity-weak) * 0.85)) 0%,
+        transparent 40%
+      ),
+
+      /* Base: Pure black foundation */
       var(--token-bg-base);
+
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
     background-blend-mode: normal;
   }
 
-  /* Neuron network layer: sits above reflective gradients but below page content (dark-mode only) */
-  .dark .neuron-background {
+  /* ═══════════════════════════════════════════════════════════════
+     Neuron Network Layer (Dark Mode Only)
+     ═══════════════════════════════════════════════════════════════
+     Canvas-based pattern layer sits above reflective gradients but
+     below page content. Must be completely hidden in light mode.
+  */
+
+  /* Light mode: Hide neuron background completely */
+  .neuron-background {
     position: fixed;
     inset: 0;
     z-index: var(--token-layer-neuron);
     pointer-events: none;
-    opacity: 0.18; /* keep neuron pattern subtle and secondary */
-    mix-blend-mode: overlay;
+    opacity: 0;           /* Hidden in light mode */
+    visibility: hidden;   /* Ensure complete removal */
+  }
+
+  /* Dark mode: Show neuron background with enhanced visibility */
+  .dark .neuron-background {
+    opacity: 0.35;        /* More visible for better visual interest */
+    visibility: visible;
+    mix-blend-mode: screen;  /* Screen mode for better visibility on dark */
   }
 }
 
@@ -202,7 +297,7 @@
   left: 50%;
   right: auto;
   top: 1rem;
-  z-index: 9999;
+  z-index: var(--token-layer-navbar);
   display: block;
   width: clamp(360px, 78%, 1100px);
   transform: translateX(-50%);

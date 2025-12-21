@@ -97,9 +97,8 @@ export const NeuronBackground = () => {
   return (
     <canvas
       ref={canvasRef}
-      className="fixed inset-0 pointer-events-none z-0 w-full h-full"
-      style={{ 
-        opacity: 1,
+      className="neuron-background"
+      style={{
         width: '100%',
         height: '100%'
       }}

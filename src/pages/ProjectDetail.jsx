@@ -91,11 +91,8 @@ export const ProjectDetail = () => {
 
     return (
         <div className="min-h-screen flex flex-col">
-            
-            <main className="flex-grow relative w-full">
-                {/* Background */}
-                <div className="absolute inset-0 bg-background -z-10"></div>
 
+            <main className="flex-grow relative w-full">
                 {/* Back Button */}
                 <div className="relative z-10 px-4 py-6 bg-background/80 backdrop-blur-sm">
                     <div className="max-w-4xl mx-auto">
@@ -124,7 +121,7 @@ export const ProjectDetail = () => {
                 )}
 
                 {/* Project Content */}
-                <div className="relative z-10 px-4 py-24 bg-background">
+                <div className="relative z-10 px-4 py-24">
                     <div className="max-w-4xl mx-auto space-y-12">
                         {/* Title and Description */}
                         <div className="space-y-4">
