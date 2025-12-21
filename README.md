@@ -151,11 +151,11 @@ The portfolio implements a token-driven design system using CSS custom propertie
 
 ## Contact
 
-Portfolio: lagenorwoth.site
+Portfolio: https://www.lagenorwoth.site
 
-LinkedIn: [Add your LinkedIn profile]
+LinkedIn: https://www.linkedin.com/in/agenorwoth-lleyton-adrian-352209344
 
-GitHub: lley-tonn
+GitHub: https://github.com/lley-tonn
 
 Email: lagenorwoth@gmail.com
 
