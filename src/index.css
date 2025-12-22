@@ -100,13 +100,12 @@
     /* Color Tokens - Dark mode overrides */
     --token-bg-base: #000000;
 
-    /* Intensity Tokens - Enhanced for more visible, enticing gradients */
-    --token-reflect-opacity-weak: 0.025;       /* Soft ambient glow */
-    --token-reflect-opacity-mid: 0.045;        /* Mid-range reflections */
-    --token-reflect-opacity-strong: 0.065;     /* More visible highlights */
-
-    /* Orange Accent - Enhanced for better brand presence */
-    --token-accent-orange-alpha: 0.12;         /* Warm tint with stronger presence */
+    /* Window Light Tokens - Cinematic light & shadow system */
+    --token-light-orange: 255, 140, 80;        /* Warm orange light (RGB) */
+    --token-light-primary: 0.12;               /* Main light beam intensity */
+    --token-light-glow: 0.08;                  /* Soft diffused glow */
+    --token-light-ambient: 0.04;               /* Ambient fill light */
+    --token-shadow-opacity: 0.6;               /* Window frame shadow darkness */
   }
 
   * {
@@ -137,80 +136,114 @@
   }
 
   /* ═══════════════════════════════════════════════════════════════
-     DARK MODE: Premium Reflective Surface Layer
+     DARK MODE: Cinematic Window Light Effect
      ═══════════════════════════════════════════════════════════════
-     Creates controlled reflective depth on pure black base.
-     Simulates light reflecting off polished black glass surface.
+     Simulates warm orange light passing through an unseen window,
+     casting soft frame shadows across a matte black wall.
 
-     Architecture:
-     - Pure black (#000000) base layer
-     - Multiple extremely-low-opacity radial gradients
-     - Subtle orange accent tint within reflection highlights only
-     - No sharp edges, no visible shapes, no decorative elements
+     Visual Concept:
+     - Pure black (#000000) matte wall surface
+     - Warm orange light entering from upper right
+     - Soft window frame shadows cutting through the light
+     - Natural diffusion and fade into darkness
+
+     Emotional Tone:
+     - Calm, architectural, premium
+     - Early morning or late afternoon atmosphere
+     - Quiet room feeling
 
      Constraints:
-     - No noise, no particles, no animation
-     - Reflection must be subtle on first glance
-     - Noticeable only on longer viewing
-     - Never distracting or dominant
+     - No animation, no particles, no decorative elements
+     - Static, ambient, spatial
+     - Light appears only as diffused glow, never solid
+     - Shadows feel natural and architectural
   */
   .dark body::before {
-    /* All color/opacity/spread values controlled via design tokens */
+    /* Window light composition - warm orange through window frame */
     background:
-      /* Layer 1: Largest, most diffuse vertical ambient wash
-         Creates soft atmospheric depth across viewport */
+      /* Window Frame Shadow 1: Vertical division (left side)
+         Darker band suggesting window mullion */
+      linear-gradient(
+        90deg,
+        transparent 0%,
+        transparent 25%,
+        rgba(0, 0, 0, var(--token-shadow-opacity)) 32%,
+        rgba(0, 0, 0, var(--token-shadow-opacity)) 38%,
+        transparent 45%,
+        transparent 100%
+      ),
+
+      /* Window Frame Shadow 2: Vertical division (right side)
+         Second mullion creating window pane separation */
+      linear-gradient(
+        90deg,
+        transparent 0%,
+        transparent 60%,
+        rgba(0, 0, 0, var(--token-shadow-opacity)) 67%,
+        rgba(0, 0, 0, var(--token-shadow-opacity)) 73%,
+        transparent 80%,
+        transparent 100%
+      ),
+
+      /* Window Frame Shadow 3: Horizontal division (upper)
+         Top window frame casting horizontal shadow */
+      linear-gradient(
+        180deg,
+        transparent 0%,
+        transparent 15%,
+        rgba(0, 0, 0, calc(var(--token-shadow-opacity) * 0.8)) 22%,
+        rgba(0, 0, 0, calc(var(--token-shadow-opacity) * 0.8)) 28%,
+        transparent 35%,
+        transparent 100%
+      ),
+
+      /* Main Light Beam: Diagonal warm orange light
+         Primary light source entering from upper right */
       radial-gradient(
-        var(--token-reflect-spread-large) at 50% 50%,
-        rgba(var(--token-reflect-color), var(--token-reflect-opacity-weak)) 0%,
-        rgba(var(--token-reflect-color), calc(var(--token-reflect-opacity-weak) * 0.4)) 30%,
+        ellipse 160% 140% at 85% 15%,
+        rgba(var(--token-light-orange), var(--token-light-primary)) 0%,
+        rgba(var(--token-light-orange), calc(var(--token-light-primary) * 0.7)) 25%,
+        rgba(var(--token-light-orange), calc(var(--token-light-primary) * 0.4)) 45%,
+        rgba(var(--token-light-orange), calc(var(--token-light-primary) * 0.2)) 60%,
+        transparent 80%
+      ),
+
+      /* Secondary Light Glow: Soft diffusion
+         Creates natural light spread and softness */
+      radial-gradient(
+        ellipse 140% 120% at 75% 25%,
+        rgba(var(--token-light-orange), var(--token-light-glow)) 0%,
+        rgba(var(--token-light-orange), calc(var(--token-light-glow) * 0.5)) 35%,
         transparent 65%
       ),
 
-      /* Layer 2: Upper reflection with warm orange tint
-         Positioned near top to suggest ambient light source */
+      /* Ambient Fill Light: Subtle overall warmth
+         Prevents complete darkness, adds atmospheric depth */
       radial-gradient(
-        var(--token-reflect-spread-mid) at 50% 15%,
-        rgba(var(--token-reflect-color), var(--token-reflect-opacity-mid)) 0%,
-        rgba(var(--token-reflect-color), calc(var(--token-reflect-opacity-mid) * 0.5)) 25%,
-        rgba(var(--token-accent-orange), calc(var(--token-accent-orange-alpha) * 0.6)) 50%,
-        transparent 70%
+        ellipse 130% 100% at 60% 40%,
+        rgba(var(--token-light-orange), var(--token-light-ambient)) 0%,
+        rgba(var(--token-light-orange), calc(var(--token-light-ambient) * 0.6)) 40%,
+        transparent 75%
       ),
 
-      /* Layer 3: Lower-right soft reflection pool
-         Adds visual balance and depth variation */
-      radial-gradient(
-        115% 65% at 42% 80%,
-        rgba(var(--token-reflect-color), calc(var(--token-reflect-opacity-mid) * 0.9)) 0%,
-        rgba(var(--token-reflect-color), calc(var(--token-reflect-opacity-mid) * 0.45)) 35%,
-        rgba(var(--token-accent-orange), calc(var(--token-accent-orange-alpha) * 0.45)) 58%,
-        transparent 78%
-      ),
-
-      /* Layer 4: Left-side orange accent glow
-         Adds warm visual interest and brand presence */
-      radial-gradient(
-        90% 60% at 10% 50%,
-        rgba(var(--token-accent-orange), calc(var(--token-accent-orange-alpha) * 0.3)) 0%,
-        transparent 60%
-      ),
-
-      /* Layer 5: Diagonal gradient for depth
-         Creates subtle directional lighting */
+      /* Edge Fade: Natural light falloff on left
+         Creates spatial depth and directional lighting */
       linear-gradient(
-        135deg,
-        rgba(var(--token-reflect-color), calc(var(--token-reflect-opacity-weak) * 0.5)) 0%,
-        transparent 50%
+        90deg,
+        transparent 0%,
+        rgba(var(--token-light-orange), calc(var(--token-light-ambient) * 0.3)) 70%,
+        transparent 100%
       ),
 
-      /* Layer 6: Gentle vertical gradient falloff
-         Creates soft top-to-bottom light dissipation */
+      /* Vertical Fade: Top-to-bottom natural dissipation
+         Simulates light settling on the wall */
       linear-gradient(
         180deg,
-        rgba(var(--token-reflect-color), calc(var(--token-reflect-opacity-weak) * 0.85)) 0%,
-        transparent 40%
+        rgba(var(--token-light-orange), calc(var(--token-light-ambient) * 0.5)) 0%,
+        transparent 65%
       ),
 
-      /* Base: Pure black foundation */
+      /* Base: Pure black matte wall */
       var(--token-bg-base);
 
     background-repeat: no-repeat;
@@ -346,6 +379,3 @@
 .glass-navbar .container { display:flex; align-items:center; justify-content:space-between; }
 .glass-navbar a { transition: color 160ms ease, opacity 160ms ease; }
 .glass-navbar a:hover { opacity: 0.95; }
-
-/* Mobile menu overlay should remain above the navbar when open */
-.mobile-menu-overlay { z-index: 10010; }
