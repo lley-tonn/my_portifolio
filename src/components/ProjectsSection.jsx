@@ -13,7 +13,7 @@ export const ProjectsSection = () => {
             title: "CinQ",
             description: "Event Management App",
             fullDescription: "A comprehensive event management application built with React and Node.js. Features include event creation, ticket management, attendee tracking, and real-time notifications.",
-            image: "/screenshots/CinQ.jpg",
+            image: "/public/screenshots/CinQ.jpg",
             technologies: ["React", "Node.js", "MongoDB"],
             link: "#",
             liveUrl: null
