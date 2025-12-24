@@ -133,6 +133,7 @@
     pointer-events: none;
     /* Light mode: transparent, no effects */
     background: transparent;
+    filter: blur(20px);
   }
 
   /* ═══════════════════════════════════════════════════════════════
@@ -267,6 +268,7 @@
     pointer-events: none;
     opacity: 0;           /* Hidden in light mode */
     visibility: hidden;   /* Ensure complete removal */
+    filter: blur(20px);
   }
 
   /* Dark mode: Show neuron background with enhanced visibility */
