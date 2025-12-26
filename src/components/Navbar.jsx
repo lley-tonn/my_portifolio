@@ -1,6 +1,7 @@
 import {cn} from "@/lib/utils"
 import { useEffect, useState } from "react"
 import { Menu, X } from "lucide-react"
+import { useScrollSpy } from "@/lib/useScrollSpy"
 
 const navItems = [
     { name: "Home", href: "#hero" },
@@ -10,10 +11,15 @@ const navItems = [
     { name: "Contact", href: "#contact" },
 ]
 
+// Extract section IDs for scroll tracking
+const sectionIds = navItems.map(item => item.href.replace('#', ''));
+
 export const Navbar = () => {
     const [isScrolled, setIsScrolled] = useState(false);
-    const [activeSection, setActiveSection] = useState("#hero");
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+    // Use Intersection Observer for scroll-aware navigation
+    const activeSection = useScrollSpy(sectionIds);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -38,9 +44,26 @@ export const Navbar = () => {
         };
     }, [isMobileMenuOpen]);
 
-    const handleNavClick = (href) => {
-        setActiveSection(href);
+    const handleNavClick = (e, href) => {
+        e.preventDefault();
         setIsMobileMenuOpen(false);
+
+        // Get the target section
+        const targetId = href.replace('#', '');
+        const targetElement = document.getElementById(targetId);
+
+        if (targetElement) {
+            // Calculate offset for fixed navbar (navbar height + top spacing)
+            const navbarOffset = 80; // Approximate navbar height + spacing
+            const elementPosition = targetElement.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.scrollY - navbarOffset;
+
+            // Smooth scroll to the target section with offset
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: 'smooth'
+            });
+        }
     };
 
     return (
@@ -55,7 +78,7 @@ export const Navbar = () => {
                     <a
                         href="#hero"
                         className="text-xl font-bold text-primary flex items-center"
-                        onClick={() => setActiveSection("#hero")}
+                        onClick={(e) => handleNavClick(e, "#hero")}
                     >
                         <span className="relative z-10">
                             <span className="text-glow text-foreground">lley-</span>tonn
@@ -68,15 +91,18 @@ export const Navbar = () => {
                             <a
                             key={key}
                             href={item.href}
-                            onClick={() => setActiveSection(item.href)}
+                            onClick={(e) => handleNavClick(e, item.href)}
                             className={cn(
-                                "text-sm sm:text-base text-foreground/80 hover:text-primary transition-colors duration-300 relative group",
+                                "text-sm sm:text-base text-foreground/80 hover:text-primary transition-all duration-300 relative group",
                                 activeSection === item.href && "text-primary"
-                            )}>
+                            )}
+                            style={{
+                                textShadow: activeSection === item.href ? '0 0 12px rgba(255, 107, 53, 0.4)' : 'none'
+                            }}>
                                 {item.name}
                                 <span className={cn(
                                     "absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full",
-                                    activeSection === item.href && "w-full"
+                                    activeSection === item.href && "w-full shadow-[0_0_8px_rgba(255,107,53,0.6)]"
                                 )}></span>
                             </a>
                         ))}
@@ -165,20 +191,23 @@ export const Navbar = () => {
                                     <a
                                         key={index}
                                         href={item.href}
-                                        onClick={() => handleNavClick(item.href)}
+                                        onClick={(e) => handleNavClick(e, item.href)}
                                         className={cn(
                                             "flex items-center px-4 py-3.5 rounded-2xl",
                                             "text-base font-medium",
                                             "transition-all duration-200",
                                             "focus:outline-none focus:ring-2 focus:ring-primary/50",
                                             activeSection === item.href
-                                                ? "bg-primary/10 text-primary border border-primary/30"
+                                                ? "bg-primary/10 text-primary border border-primary/30 shadow-[0_0_12px_rgba(255,107,53,0.2)]"
                                                 : "text-foreground/80 hover:text-primary hover:bg-primary/5 border border-transparent hover:border-primary/20"
                                         )}
+                                        style={{
+                                            textShadow: activeSection === item.href ? '0 0 10px rgba(255, 107, 53, 0.3)' : 'none'
+                                        }}
                                     >
                                         <span className="flex-1">{item.name}</span>
                                         {activeSection === item.href && (
-                                            <div className="w-1.5 h-1.5 rounded-full bg-primary" />
+                                            <div className="w-1.5 h-1.5 rounded-full bg-primary shadow-[0_0_6px_rgba(255,107,53,0.8)]" />
                                         )}
                                     </a>
                                 ))}

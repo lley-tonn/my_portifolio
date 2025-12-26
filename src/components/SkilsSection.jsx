@@ -1,6 +1,7 @@
 import { Palette, Zap, Code, Brain } from "lucide-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faJs, faHtml5, faCss3Alt, faPython, faReact, faSwift } from "@fortawesome/free-brands-svg-icons";
+import { faJs, faHtml5, faCss3Alt, faPython, faReact, faSwift, faFigma, faAndroid, faApple } from "@fortawesome/free-brands-svg-icons";
+import { faCode, faCube, faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 
 export const SkillsSection = () => {
     const skills = [
@@ -70,6 +71,66 @@ export const SkillsSection = () => {
             icon: faReact,
             color: "text-cyan-400",
             delay: 6
+        }
+    ];
+
+    const tools = [
+        {
+            name: "Cursor",
+            iconType: "image",
+            iconSrc: "/icons/cursor.png",
+            delay: 1
+        },
+        {
+            name: "VS Code",
+            iconType: "image",
+            iconSrc: "/icons/vsCode.svg",
+            delay: 2
+        },
+        {
+            name: "Framer",
+            iconType: "image",
+            iconSrc: "/icons/framer.png",
+            delay: 3
+        },
+        {
+            name: "Figma",
+            iconType: "image",
+            iconSrc: "/icons/figma.png",
+            delay: 4
+        },
+        {
+            name: "Xcode",
+            iconType: "fontawesome",
+            icon: faApple,
+            color: "text-blue-500",
+            delay: 5
+        },
+        {
+            name: "Android Studio",
+            iconType: "fontawesome",
+            icon: faAndroid,
+            color: "text-green-500",
+            delay: 6
+        },
+        {
+            name: "Postman",
+            iconType: "fontawesome",
+            icon: faPaperPlane,
+            color: "text-orange-500",
+            delay: 7
+        },
+        {
+            name: "Git",
+            iconType: "image",
+            iconSrc: "/icons/git.png",
+            delay: 8
+        },
+        {
+            name: "GitHub",
+            iconType: "image",
+            iconSrc: "/icons/github.png",
+            delay: 9
         }
     ];
 
@@ -182,6 +243,57 @@ export const SkillsSection = () => {
                                         {/* Language name */}
                                         <h4 className="text-lg font-semibold text-foreground text-center group-hover:text-primary transition-colors duration-300">
                                             {lang.name}
+                                        </h4>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </div>
+
+                    {/* Tools subsection */}
+                    <div className="mt-24 space-y-12">
+                        <h3 className="text-3xl md:text-4xl font-bold text-center">
+                            <span className="text-primary">Tools</span> I Use
+                        </h3>
+
+                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-5 gap-4">
+                            {tools.map((tool, index) => {
+                                return (
+                                    <div
+                                        key={index}
+                                        className="group flex flex-col items-center justify-center p-4 rounded-xl
+                                                   max-w-32 mx-auto w-full
+                                                   bg-gradient-to-br from-card/60 to-card/30 dark:from-card/50 dark:to-card/20
+                                                   border border-border/60 dark:border-border/30
+                                                   backdrop-blur-md
+                                                   shadow-md dark:shadow-none
+                                                   hover:shadow-xl dark:hover:shadow-xl
+                                                   hover:shadow-primary/20 dark:hover:shadow-primary/20
+                                                   hover:border-primary/60 dark:hover:border-primary/50
+                                                   transition-all duration-300
+                                                   cursor-pointer
+                                                   transform hover:scale-105 hover:-rotate-3"
+                                        style={{
+                                            animationDelay: `${tool.delay * 0.1}s`
+                                        }}
+                                    >
+                                        {/* Icon - Image or FontAwesome */}
+                                        {tool.iconType === "image" ? (
+                                            <img
+                                                src={tool.iconSrc}
+                                                alt={`${tool.name} icon`}
+                                                className="w-10 h-10 mb-3 object-contain group-hover:scale-125 transition-transform duration-300"
+                                            />
+                                        ) : (
+                                            <FontAwesomeIcon
+                                                icon={tool.icon}
+                                                className={`text-3xl mb-3 ${tool.color} group-hover:scale-125 transition-transform duration-300`}
+                                            />
+                                        )}
+
+                                        {/* Tool name */}
+                                        <h4 className="text-sm font-semibold text-foreground text-center group-hover:text-primary transition-colors duration-300">
+                                            {tool.name}
                                         </h4>
                                     </div>
                                 );
