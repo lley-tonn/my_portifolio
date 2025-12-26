@@ -108,20 +108,29 @@
     --token-shadow-opacity: 0.6;               /* Window frame shadow darkness */
   }
 
-  * {
+  *,
+  *::before,
+  *::after {
     @apply border-border;
+    box-sizing: border-box;
   }
 
   html {
-    @apply scroll-smooth;
+    @apply scroll-smooth bg-background;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
   }
 
   body {
-    @apply bg-background text-foreground transition-colors duration-300;
+    @apply text-foreground transition-colors duration-300;
     font-feature-settings: "rlig" 1, "calt" 1;
     position: relative;
-    /* Ensure clean white background in light mode */
-    background-color: var(--token-bg-base);
+    /* Body uses transparent background to let html background show, while ::before adds effects */
+    background: transparent;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
   }
 
   /* Light mode: Ensure no pseudo-elements or effects */
@@ -319,9 +328,12 @@
 
 #root {
   max-width: 100%;
-  margin: 0 auto;
+  width: 100%;
+  margin: 0;
   padding: 0;
   text-align: center;
+  background-color: transparent;
+  min-height: 100vh;
 }
 
 /* ==========================
