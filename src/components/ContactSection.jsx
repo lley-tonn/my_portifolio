@@ -142,10 +142,10 @@ export const ContactSection = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
             {/* Contact Info - Animated */}
-            <div className="space-y-8">
-              <div className="space-y-4">
+            <div className="space-y-6 sm:space-y-8">
+              <div className="space-y-3 sm:space-y-4">
                 {contactLinks.map((link, index) => (
                   <a
                     key={index}
@@ -153,7 +153,7 @@ export const ContactSection = () => {
                     target={link.external ? "_blank" : undefined}
                     rel={link.external ? "noopener noreferrer" : undefined}
                     className={cn(
-                      "flex items-center gap-4 p-5 rounded-xl group relative overflow-hidden",
+                      "flex items-center gap-3 sm:gap-4 p-3 sm:p-4 md:p-5 rounded-xl group relative overflow-hidden",
                       "bg-gradient-to-br from-card/60 to-card/30 dark:from-card/50 dark:to-card/20",
                       "border border-border/40 dark:border-border/30",
                       "hover:border-primary/60 dark:hover:border-primary/50",
@@ -175,7 +175,7 @@ export const ContactSection = () => {
                     <div className="relative">
                       <div className="absolute inset-0 bg-primary/20 rounded-full scale-0 group-hover:scale-150
                                       opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
-                      <div className="w-14 h-14 rounded-full bg-primary/10 dark:bg-primary/20
+                      <div className="w-12 h-12 sm:w-13 sm:h-13 md:w-14 md:h-14 rounded-full bg-primary/10 dark:bg-primary/20
                                       flex items-center justify-center
                                       group-hover:bg-primary/20 dark:group-hover:bg-primary/30
                                       group-hover:rotate-12 transition-all duration-300 relative z-10">

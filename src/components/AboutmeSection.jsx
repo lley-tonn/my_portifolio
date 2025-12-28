@@ -121,7 +121,7 @@ export const AboutmeSection = () => {
                                               blur-2xl animate-pulse-subtle"></div>
 
                                 {/* Avatar Container */}
-                                <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden
+                                <div className="relative w-48 sm:w-56 md:w-72 lg:w-80 h-48 sm:h-56 md:h-72 lg:h-80 rounded-full overflow-hidden
                                               border-4 border-primary/30
                                               bg-gradient-to-br from-card/80 to-card/40
                                               backdrop-blur-md
@@ -178,12 +178,12 @@ export const AboutmeSection = () => {
                                 <div className="absolute top-0 right-0 w-12 h-12 rounded-full bg-primary/20 backdrop-blur-md
                                               flex items-center justify-center animate-float"
                                      style={{ animationDuration: '4s', animationDelay: '0.5s' }}>
-                                    <span className="text-2xl">💻</span>
+                                    <span className="text-2xl"></span>
                                 </div>
                                 <div className="absolute bottom-0 left-0 w-12 h-12 rounded-full bg-primary/20 backdrop-blur-md
                                               flex items-center justify-center animate-float"
                                      style={{ animationDuration: '5s', animationDelay: '1s' }}>
-                                    <span className="text-2xl">🎨</span>
+                                    <span className="text-2xl"></span>
                                 </div>
                             </div>
                         </div>
@@ -191,7 +191,7 @@ export const AboutmeSection = () => {
 
                     {/* Stats Section with Counter Animation */}
                     <div className={cn(
-                        "grid grid-cols-2 md:grid-cols-4 gap-6 transition-all duration-1000 delay-600",
+                        "grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 md:gap-6 transition-all duration-1000 delay-600",
                         isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
                     )}>
                         {[
@@ -202,7 +202,7 @@ export const AboutmeSection = () => {
                         ].map((stat, index) => (
                             <div
                                 key={index}
-                                className="text-center p-6 rounded-2xl
+                                className="text-center p-3 sm:p-4 md:p-5 lg:p-6 rounded-2xl
                                          bg-gradient-to-br from-card/60 to-card/30 dark:from-card/50 dark:to-card/20
                                          border border-border/40 dark:border-border/30
                                          backdrop-blur-md
@@ -212,14 +212,14 @@ export const AboutmeSection = () => {
                                          group"
                                 style={{ transitionDelay: `${index * 50}ms` }}
                             >
-                                <div className="text-3xl mb-2 group-hover:scale-125 transition-transform duration-300">
+                                <div className="text-2xl sm:text-3xl mb-2 group-hover:scale-125 transition-transform duration-300">
                                     {stat.icon}
                                 </div>
-                                <div className="text-2xl md:text-3xl font-bold text-primary mb-1
+                                <div className="text-xl sm:text-2xl md:text-3xl font-bold text-primary mb-1
                                               group-hover:scale-110 transition-transform duration-300">
                                     {stat.value}
                                 </div>
-                                <div className="text-xs md:text-sm text-foreground/60 uppercase tracking-wider">
+                                <div className="text-xs sm:text-xs md:text-sm text-foreground/60 uppercase tracking-wider">
                                     {stat.label}
                                 </div>
                             </div>

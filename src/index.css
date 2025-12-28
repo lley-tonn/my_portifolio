@@ -39,7 +39,7 @@
 @layer base {
   :root {
     /* 🌞 Light Mode Color Tokens */
-    --background: 0 0% 100%;           /* white */
+    --background: 0 0% 88%;            /* #e0e0e0 - medium-light gray (noticeably darker) */
     --foreground: 0 0% 13%;            /* #222 for text */
 
     --card: 0 0% 94%;                  /* #f0f0f0 - light gray cards */
@@ -57,7 +57,7 @@
     */
 
     /* Color Tokens */
-    --token-bg-base: #f5f5f5;                /* Base background color (light gray) */
+    --token-bg-base: #d8d8d8;                /* Base background color (darker gray) */
     --token-reflect-color: 255,255,255;      /* Reflection highlight base (RGB) */
     --token-accent-orange: 255,107,53;       /* Brand orange (RGB) */
 
@@ -81,7 +81,7 @@
 
   .dark {
     /* 🌚 Dark Mode Color Tokens */
-    --background: 0 0% 0%;              /* #000000 - pure black background */
+    --background: 0 0% 3%;              /* #080808 - very dark gray (almost black) */
     --foreground: 0 0% 100%;            /* white text */
 
     --card: 0 0% 10%;                   /* #1a1a1a - dark gray cards/nav */
@@ -98,7 +98,7 @@
     */
 
     /* Color Tokens - Dark mode overrides */
-    --token-bg-base: #000000;
+    --token-bg-base: #080808;
 
     /* Window Light Tokens - Cinematic light & shadow system */
     --token-light-orange: 255, 140, 80;        /* Warm orange light (RGB) */
@@ -350,7 +350,7 @@
   top: 1rem;
   z-index: var(--token-layer-navbar);
   display: block;
-  width: clamp(360px, 78%, 1100px);
+  width: clamp(320px, 90%, 1100px);
   transform: translateX(-50%);
   border-radius: 20px;
   padding: 0.9rem 1rem;

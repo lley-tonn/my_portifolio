@@ -38,7 +38,7 @@ export const HeroSection = () => {
             <div className="absolute inset-0 pointer-events-none overflow-hidden">
                 {/* Floating Gradient Orbs */}
                 <div
-                    className="absolute top-20 left-10 w-96 h-96 bg-primary/20 rounded-full blur-3xl animate-float opacity-30"
+                    className="absolute top-20 left-10 w-48 sm:w-72 md:w-80 lg:w-96 h-48 sm:h-72 md:h-80 lg:h-96 bg-primary/20 rounded-full blur-3xl animate-float opacity-30"
                     style={{
                         animationDelay: '0s',
                         animationDuration: '8s',
@@ -46,7 +46,7 @@ export const HeroSection = () => {
                     }}
                 ></div>
                 <div
-                    className="absolute bottom-20 right-10 w-80 h-80 bg-primary/15 rounded-full blur-3xl animate-float opacity-30"
+                    className="absolute bottom-20 right-10 w-40 sm:w-64 md:w-72 lg:w-80 h-40 sm:h-64 md:h-72 lg:h-80 bg-primary/15 rounded-full blur-3xl animate-float opacity-30"
                     style={{
                         animationDelay: '2s',
                         animationDuration: '10s',
@@ -54,7 +54,7 @@ export const HeroSection = () => {
                     }}
                 ></div>
                 <div
-                    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-primary/10 rounded-full blur-3xl animate-pulse-subtle"
+                    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 sm:w-56 md:w-64 lg:w-72 h-32 sm:h-56 md:h-64 lg:h-72 bg-primary/10 rounded-full blur-3xl animate-pulse-subtle"
                     style={{
                         transform: `translate(calc(-50% + ${mousePosition.x * 0.2}px), calc(-50% + ${mousePosition.y * 0.2}px))`
                     }}
@@ -72,7 +72,7 @@ export const HeroSection = () => {
             <div className="container max-w-4xl mx-auto text-center z-10">
                 <div className="space-y-8">
                     {/* Main Heading with Stagger Animation */}
-                    <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight">
+                    <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight">
                         <span className={cn(
                             "inline-block transition-all duration-1000 ease-out",
                             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
@@ -132,7 +132,7 @@ export const HeroSection = () => {
                         {/* Get in Touch Button - Primary */}
                         <a
                             href="#contact"
-                            className="group relative px-8 py-4 rounded-2xl overflow-hidden
+                            className="group relative px-6 py-3 sm:px-7 sm:py-3.5 md:px-8 md:py-4 rounded-2xl overflow-hidden
                                        transition-all duration-500 hover:scale-105 active:scale-95
                                        hover:shadow-2xl hover:shadow-primary/30"
                         >
@@ -179,7 +179,7 @@ export const HeroSection = () => {
                         {/* Explore My Work Button - Secondary */}
                         <a
                             href="#projects"
-                            className="group relative px-8 py-4 rounded-2xl overflow-hidden
+                            className="group relative px-6 py-3 sm:px-7 sm:py-3.5 md:px-8 md:py-4 rounded-2xl overflow-hidden
                                        transition-all duration-500 hover:scale-105 active:scale-95
                                        hover:shadow-xl hover:shadow-primary/20"
                         >
@@ -232,7 +232,7 @@ export const HeroSection = () => {
                                 href={social.href}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="w-12 h-12 rounded-full bg-card/60 backdrop-blur-md border border-border/40
+                                className="w-11 h-11 sm:w-12 sm:h-12 md:w-13 md:h-13 rounded-full bg-card/60 backdrop-blur-md border border-border/40
                                          flex items-center justify-center
                                          hover:bg-primary/10 hover:border-primary/40 hover:scale-110 hover:-translate-y-1
                                          transition-all duration-300 group"

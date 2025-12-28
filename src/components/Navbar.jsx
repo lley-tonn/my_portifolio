@@ -93,7 +93,7 @@ export const Navbar = () => {
                             href={item.href}
                             onClick={(e) => handleNavClick(e, item.href)}
                             className={cn(
-                                "text-sm sm:text-base text-foreground/80 hover:text-primary transition-all duration-300 relative group",
+                                "text-sm md:text-base text-foreground/80 hover:text-primary transition-all duration-300 relative group",
                                 activeSection === item.href && "text-primary"
                             )}
                             style={{
@@ -112,7 +112,7 @@ export const Navbar = () => {
                     <button
                         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                         className={cn(
-                            "md:hidden p-2.5 rounded-xl",
+                            "md:hidden p-3 rounded-xl",
                             "bg-background/60 dark:bg-background/40",
                             "backdrop-blur-md",
                             "border border-primary/20",
@@ -184,7 +184,7 @@ export const Navbar = () => {
                         <div className="absolute inset-0 rounded-3xl border border-primary/30 pointer-events-none" />
 
                         {/* Menu Content */}
-                        <div className="relative z-10 p-6">
+                        <div className="relative z-10 p-4 sm:p-6">
                             {/* Navigation Links */}
                             <nav className="space-y-2" role="navigation">
                                 {navItems.map((item, index) => (
@@ -193,7 +193,7 @@ export const Navbar = () => {
                                         href={item.href}
                                         onClick={(e) => handleNavClick(e, item.href)}
                                         className={cn(
-                                            "flex items-center px-4 py-3.5 rounded-2xl",
+                                            "flex items-center px-4 py-4 rounded-2xl min-h-[48px]",
                                             "text-base font-medium",
                                             "transition-all duration-200",
                                             "focus:outline-none focus:ring-2 focus:ring-primary/50",
