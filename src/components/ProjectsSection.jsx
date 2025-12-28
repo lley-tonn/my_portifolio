@@ -1,11 +1,230 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ChevronLeft, ChevronRight, ExternalLink } from 'lucide-react';
+import { ExternalLink, Github } from 'lucide-react';
+import { cn } from '@/lib/utils';
+
+// Individual Flip Card Component
+const FlipCard = ({ project, isFlipped, onFlip, index }) => {
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const checkMobile = () => setIsMobile(window.innerWidth < 768);
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
+
+    const handleClick = (e) => {
+        e.stopPropagation();
+        onFlip(project.id);
+    };
+
+    return (
+        <div
+            className={cn(
+                "flip-card-container transition-all duration-500 ease-out",
+                isFlipped ? "col-span-full md:col-span-2" : "col-span-1"
+            )}
+            style={{
+                perspective: '1500px',
+                transformStyle: 'preserve-3d',
+            }}
+        >
+            <div
+                className={cn(
+                    "flip-card relative w-full transition-all duration-700 ease-out cursor-pointer",
+                    isFlipped ? "h-[600px]" : "h-[400px]"
+                )}
+                onClick={handleClick}
+                style={{
+                    transformStyle: 'preserve-3d',
+                    transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
+                }}
+            >
+                {/* Front of Card */}
+                <div
+                    className="flip-card-face flip-card-front absolute inset-0 rounded-2xl overflow-hidden
+                               bg-gradient-to-br from-card/90 to-card/50 dark:from-card/70 dark:to-card/30
+                               border border-border/60 dark:border-border/30
+                               backdrop-blur-xl
+                               shadow-xl dark:shadow-none
+                               hover:shadow-2xl dark:hover:shadow-2xl
+                               hover:shadow-primary/20 dark:hover:shadow-primary/20
+                               hover:border-primary/60 dark:hover:border-primary/50
+                               transition-all duration-300"
+                    style={{
+                        backfaceVisibility: 'hidden',
+                        WebkitBackfaceVisibility: 'hidden',
+                    }}
+                >
+                    {/* Project Image */}
+                    <div className="relative w-full h-full">
+                        {project.image ? (
+                            <>
+                                <img
+                                    src={project.image}
+                                    alt={project.title}
+                                    className="w-full h-full object-cover"
+                                />
+                                {/* Gradient Overlay */}
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/60 to-transparent"></div>
+                            </>
+                        ) : (
+                            <div className="w-full h-full bg-gradient-to-br from-primary/30 to-primary/10
+                                           flex items-center justify-center relative overflow-hidden">
+                                <div className="absolute inset-0 opacity-10">
+                                    <div className="absolute top-0 left-0 w-40 h-40 bg-primary rounded-full blur-3xl"></div>
+                                    <div className="absolute bottom-0 right-0 w-40 h-40 bg-primary rounded-full blur-3xl"></div>
+                                </div>
+                                <p className="text-foreground/60 text-center px-4 font-medium relative z-10">
+                                    Screenshot coming soon
+                                </p>
+                            </div>
+                        )}
+
+                        {/* Title Overlay */}
+                        <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8 z-10">
+                            <h3 className="text-2xl md:text-3xl font-bold text-white mb-2">
+                                {project.title}
+                            </h3>
+                            <p className="text-white/70 text-sm mb-3">
+                                {project.description}
+                            </p>
+                            <p className="text-white/80 text-xs flex items-center gap-2">
+                                <span className="inline-block w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+                                Click to see details
+                            </p>
+                        </div>
+
+                        {/* Flip Indicator */}
+                        <div className="absolute top-4 right-4 p-3 rounded-full
+                                       bg-primary/20 backdrop-blur-md
+                                       border border-primary/40
+                                       group-hover:scale-110
+                                       transition-transform duration-300">
+                            <ExternalLink className="w-5 h-5 text-primary" />
+                        </div>
+
+                        {/* Hover Glow */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-primary/5 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+                    </div>
+                </div>
+
+                {/* Back of Card */}
+                <div
+                    className="flip-card-face flip-card-back absolute inset-0 rounded-2xl overflow-hidden
+                               bg-gradient-to-br from-card/95 to-card/70 dark:from-card/85 dark:to-card/60
+                               border-2 border-primary/50 dark:border-primary/40
+                               backdrop-blur-xl
+                               shadow-2xl dark:shadow-none
+                               p-6 md:p-8 flex flex-col justify-between
+                               overflow-y-auto"
+                    style={{
+                        backfaceVisibility: 'hidden',
+                        WebkitBackfaceVisibility: 'hidden',
+                        transform: 'rotateY(180deg)',
+                    }}
+                >
+                    {/* Close indicator */}
+                    <div className="absolute top-4 right-4 text-xs text-foreground/50 flex items-center gap-2">
+                        <span>Click to close</span>
+                        <div className="w-6 h-6 rounded-full border border-foreground/30 flex items-center justify-center">
+                            <span className="text-foreground/50">×</span>
+                        </div>
+                    </div>
+
+                    <div className="space-y-6 mt-8">
+                        {/* Title */}
+                        <div>
+                            <h3 className="text-3xl md:text-4xl font-bold text-primary mb-2">
+                                {project.title}
+                            </h3>
+                            <p className="text-foreground/60 text-sm">
+                                {project.description}
+                            </p>
+                        </div>
+
+                        {/* Description */}
+                        <div>
+                            <h4 className="text-sm font-semibold text-foreground/70 uppercase tracking-wide mb-3">
+                                About This Project
+                            </h4>
+                            <p className="text-foreground/80 leading-relaxed text-base">
+                                {project.fullDescription || project.description}
+                            </p>
+                        </div>
+
+                        {/* Tech Stack */}
+                        <div className="space-y-3">
+                            <h4 className="text-sm font-semibold text-foreground/70 uppercase tracking-wide">
+                                Tech Stack
+                            </h4>
+                            <div className="flex flex-wrap gap-2">
+                                {project.technologies.map((tech, idx) => (
+                                    <span
+                                        key={idx}
+                                        className="px-4 py-2 rounded-full text-sm font-medium
+                                                   bg-primary/15 dark:bg-primary/25
+                                                   text-primary
+                                                   border border-primary/30
+                                                   hover:bg-primary/25 dark:hover:bg-primary/35
+                                                   hover:scale-105
+                                                   transition-all duration-300"
+                                    >
+                                        {tech}
+                                    </span>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Links */}
+                    <div className="flex flex-col sm:flex-row gap-3 pt-6 mt-auto">
+                        {project.link && project.link !== '#' && (
+                            <a
+                                href={project.link}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex items-center justify-center gap-2 px-6 py-3 rounded-xl
+                                           bg-primary text-primary-foreground font-semibold
+                                           hover:shadow-[0_0_25px_rgba(255,107,53,0.5)]
+                                           hover:scale-105
+                                           transition-all duration-300"
+                                onClick={(e) => e.stopPropagation()}
+                            >
+                                <Github className="w-5 h-5" />
+                                <span>View on GitHub</span>
+                            </a>
+                        )}
+                        {project.liveUrl && (
+                            <a
+                                href={project.liveUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex items-center justify-center gap-2 px-6 py-3 rounded-xl
+                                           bg-card/80 border-2 border-primary/40 text-primary font-semibold
+                                           hover:bg-primary/15
+                                           hover:border-primary/60
+                                           hover:scale-105
+                                           transition-all duration-300"
+                                onClick={(e) => e.stopPropagation()}
+                            >
+                                <ExternalLink className="w-5 h-5" />
+                                <span>Live Demo</span>
+                            </a>
+                        )}
+                    </div>
+
+                    {/* Glow Effect */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-primary/10 to-transparent pointer-events-none rounded-2xl"></div>
+                </div>
+            </div>
+        </div>
+    );
+};
 
 export const ProjectsSection = () => {
-    const navigate = useNavigate();
-    const [currentIndex, setCurrentIndex] = useState(0);
-    const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+    const [flippedCard, setFlippedCard] = useState(null);
 
     const projects = [
         {
@@ -14,7 +233,7 @@ export const ProjectsSection = () => {
             description: "Event Management App",
             fullDescription: "A comprehensive event management application built with React and Node.js. Features include event creation, ticket management, attendee tracking, and real-time notifications.",
             image: "/screenshots/CinQ.jpg",
-            technologies: ["React", "Node.js", "MongoDB"],
+            technologies: ["React", "Node.js", "MongoDB", "Express", "Socket.io"],
             link: "#",
             liveUrl: null
         },
@@ -50,220 +269,66 @@ export const ProjectsSection = () => {
         }
     ];
 
-    // Auto-slide carousel every 4 seconds
+    const handleFlip = (projectId) => {
+        setFlippedCard(flippedCard === projectId ? null : projectId);
+    };
+
+    // Close flipped card when clicking outside
     useEffect(() => {
-        if (!isAutoPlaying) return;
+        const handleClickOutside = (e) => {
+            if (flippedCard && !e.target.closest('.flip-card-container')) {
+                setFlippedCard(null);
+            }
+        };
 
-        const interval = setInterval(() => {
-            nextSlide();
-        }, 4000);
+        document.addEventListener('click', handleClickOutside);
+        return () => document.removeEventListener('click', handleClickOutside);
+    }, [flippedCard]);
 
-        return () => clearInterval(interval);
-    }, [currentIndex, isAutoPlaying]);
+    // Keyboard navigation
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (e.key === 'Escape' && flippedCard) {
+                setFlippedCard(null);
+            }
+        };
 
-    const nextSlide = () => {
-        setCurrentIndex((prev) => (prev + 1) % projects.length);
-    };
-
-    const prevSlide = () => {
-        setCurrentIndex((prev) => (prev - 1 + projects.length) % projects.length);
-    };
-
-    const goToSlide = (index) => {
-        setCurrentIndex(index);
-        setIsAutoPlaying(false);
-    };
-
-    // Get 3 projects to display (with wrapping)
-    const getDisplayedProjects = () => {
-        const displayed = [];
-        for (let i = 0; i < 3; i++) {
-            displayed.push(projects[(currentIndex + i) % projects.length]);
-        }
-        return displayed;
-    };
-
-    const displayedProjects = getDisplayedProjects();
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [flippedCard]);
 
     return (
         <section id="projects" className="relative min-h-screen flex flex-col items-center justify-center px-4 py-24">
             <div className="container max-w-7xl mx-auto z-10">
-                <div className="space-y-16">
+                <div className="space-y-12">
                     {/* Header */}
                     <div className="text-center space-y-4">
                         <h2 className="text-4xl md:text-5xl font-bold">
                             Featured <span className="text-primary">Projects</span>
                         </h2>
                         <p className="text-foreground/70 max-w-2xl mx-auto">
-                            Explore my latest work and creative solutions
+                            Click on any project card to explore details, tech stack, and links
                         </p>
                     </div>
 
-                    {/* Carousel Container */}
-                    <div className="relative">
-                        {/* Cards Grid */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                            {displayedProjects.map((project, idx) => (
-                                <div
-                                    key={`${project.id}-${idx}`}
-                                    onClick={() => navigate(`/project/${project.id}`)}
-                                    className="group relative rounded-2xl overflow-hidden
-                                               bg-gradient-to-br from-card/90 to-card/50 dark:from-card/70 dark:to-card/30
-                                               border border-border/60 dark:border-border/30
-                                               backdrop-blur-xl
-                                               shadow-xl dark:shadow-none
-                                               hover:shadow-2xl dark:hover:shadow-2xl
-                                               hover:shadow-primary/30 dark:hover:shadow-primary/30
-                                               hover:border-primary/60 dark:hover:border-primary/50
-                                               transition-all duration-500
-                                               cursor-pointer
-                                               transform hover:scale-[1.02] hover:-translate-y-2
-                                               animate-fade-in"
-                                    style={{ animationDelay: `${idx * 0.1}s` }}
-                                >
-                                    {/* Project Image */}
-                                    <div className="relative w-full h-64 overflow-hidden">
-                                        {project.image ? (
-                                            <>
-                                                <img
-                                                    src={project.image}
-                                                    alt={project.title}
-                                                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                                                />
-                                                {/* Gradient Overlay */}
-                                                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent"></div>
+                    {/* Projects Grid - Accordion Style */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 auto-rows-fr">
+                        {projects.map((project, index) => (
+                            <FlipCard
+                                key={project.id}
+                                project={project}
+                                isFlipped={flippedCard === project.id}
+                                onFlip={handleFlip}
+                                index={index}
+                            />
+                        ))}
+                    </div>
 
-                                                {/* Floating Action Icon */}
-                                                <div className="absolute top-4 right-4 p-3 rounded-full
-                                                               bg-primary/20 backdrop-blur-md
-                                                               border border-primary/40
-                                                               opacity-0 group-hover:opacity-100
-                                                               transform translate-y-2 group-hover:translate-y-0
-                                                               transition-all duration-300">
-                                                    <ExternalLink className="w-5 h-5 text-primary" />
-                                                </div>
-                                            </>
-                                        ) : (
-                                            <div className="w-full h-full bg-gradient-to-br from-primary/30 to-primary/10
-                                                           flex items-center justify-center relative overflow-hidden">
-                                                {/* Animated background pattern */}
-                                                <div className="absolute inset-0 opacity-10">
-                                                    <div className="absolute top-0 left-0 w-40 h-40 bg-primary rounded-full blur-3xl"></div>
-                                                    <div className="absolute bottom-0 right-0 w-40 h-40 bg-primary rounded-full blur-3xl"></div>
-                                                </div>
-                                                <p className="text-foreground/60 text-center px-4 font-medium relative z-10">
-                                                    Screenshot coming soon
-                                                </p>
-                                            </div>
-                                        )}
-                                    </div>
-
-                                    {/* Project Info */}
-                                    <div className="p-6 space-y-4">
-                                        {/* Title */}
-                                        <div className="flex items-start justify-between gap-4">
-                                            <h3 className="text-2xl font-bold text-foreground
-                                                          group-hover:text-primary
-                                                          transition-colors duration-300">
-                                                {project.title}
-                                            </h3>
-                                        </div>
-
-                                        {/* Description */}
-                                        <p className="text-foreground/70 text-sm leading-relaxed line-clamp-2">
-                                            {project.description}
-                                        </p>
-
-                                        {/* Technologies */}
-                                        <div className="flex flex-wrap gap-2 pt-2">
-                                            {project.technologies.map((tech, index) => (
-                                                <span
-                                                    key={index}
-                                                    className="px-3 py-1.5 rounded-full text-xs font-medium
-                                                               bg-primary/10 dark:bg-primary/20
-                                                               text-primary
-                                                               border border-primary/20 dark:border-primary/30
-                                                               group-hover:bg-primary/20 dark:group-hover:bg-primary/30
-                                                               group-hover:border-primary/40
-                                                               transition-all duration-300"
-                                                >
-                                                    {tech}
-                                                </span>
-                                            ))}
-                                        </div>
-
-                                        {/* View Project Link */}
-                                        <div className="flex items-center gap-2 text-primary font-semibold text-sm
-                                                       opacity-0 group-hover:opacity-100
-                                                       transform translate-y-2 group-hover:translate-y-0
-                                                       transition-all duration-300">
-                                            <span>View Project</span>
-                                            <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300"
-                                                 fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                                            </svg>
-                                        </div>
-                                    </div>
-
-                                    {/* Hover Glow Effect */}
-                                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
-                                        <div className="absolute inset-0 bg-gradient-to-t from-primary/5 to-transparent"></div>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-
-                        {/* Navigation Controls */}
-                        <div className="flex items-center justify-center gap-4 mt-8">
-                            {/* Previous Button */}
-                            <button
-                                onClick={prevSlide}
-                                onMouseEnter={() => setIsAutoPlaying(false)}
-                                className="p-3 rounded-full
-                                           bg-card/80 dark:bg-card/60
-                                           border border-border/40 dark:border-border/30
-                                           backdrop-blur-md
-                                           hover:border-primary/60 dark:hover:border-primary/50
-                                           hover:bg-primary/10 dark:hover:bg-primary/20
-                                           transition-all duration-300
-                                           group"
-                                aria-label="Previous project"
-                            >
-                                <ChevronLeft className="w-5 h-5 text-foreground/70 group-hover:text-primary transition-colors duration-300" />
-                            </button>
-
-                            {/* Dots Indicator */}
-                            <div className="flex items-center gap-2">
-                                {projects.map((_, index) => (
-                                    <button
-                                        key={index}
-                                        onClick={() => goToSlide(index)}
-                                        className={`transition-all duration-300 rounded-full
-                                                   ${index === currentIndex
-                                                       ? 'w-8 h-2 bg-primary'
-                                                       : 'w-2 h-2 bg-foreground/30 hover:bg-foreground/50'}`}
-                                        aria-label={`Go to project ${index + 1}`}
-                                    />
-                                ))}
-                            </div>
-
-                            {/* Next Button */}
-                            <button
-                                onClick={nextSlide}
-                                onMouseEnter={() => setIsAutoPlaying(false)}
-                                className="p-3 rounded-full
-                                           bg-card/80 dark:bg-card/60
-                                           border border-border/40 dark:border-border/30
-                                           backdrop-blur-md
-                                           hover:border-primary/60 dark:hover:border-primary/50
-                                           hover:bg-primary/10 dark:hover:bg-primary/20
-                                           transition-all duration-300
-                                           group"
-                                aria-label="Next project"
-                            >
-                                <ChevronRight className="w-5 h-5 text-foreground/70 group-hover:text-primary transition-colors duration-300" />
-                            </button>
-                        </div>
+                    {/* Helper text */}
+                    <div className="text-center">
+                        <p className="text-foreground/40 text-sm">
+                            Press <kbd className="px-2 py-1 bg-card/60 border border-border/40 rounded text-xs">ESC</kbd> to close expanded cards
+                        </p>
                     </div>
                 </div>
             </div>

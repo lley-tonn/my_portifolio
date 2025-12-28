@@ -116,6 +116,8 @@
   }
 
   html {
+    @apply scroll-smooth;
+    background-color: var(--token-bg-base);
     @apply scroll-smooth bg-background;
     margin: 0;
     padding: 0;
@@ -126,6 +128,8 @@
     @apply text-foreground transition-colors duration-300;
     font-feature-settings: "rlig" 1, "calt" 1;
     position: relative;
+    /* Body is transparent to allow body::before gradient to show */
+    background: transparent;
     /* Body uses transparent background to let html background show, while ::before adds effects */
     background: transparent;
     min-height: 100vh;

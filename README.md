@@ -153,7 +153,7 @@ The portfolio implements a token-driven design system using CSS custom propertie
 
 Portfolio: https://www.lagenorwoth.site
 
-LinkedIn: https://www.linkedin.com/in/agenorwoth-lleyton-adrian-352209344
+LinkedIn: https://www.linkedin.com/in/lley-tonn
 
 GitHub: https://github.com/lley-tonn
 
