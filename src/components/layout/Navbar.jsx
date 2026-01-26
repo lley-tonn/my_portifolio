@@ -1,7 +1,7 @@
 import {cn} from "@/lib/utils"
 import { useEffect, useState } from "react"
 import { Menu, X } from "lucide-react"
-import { useScrollSpy } from "@/lib/useScrollSpy"
+import { useScrollSpy } from "@/hooks/useScrollSpy"
 
 const navItems = [
     { name: "Home", href: "#hero" },

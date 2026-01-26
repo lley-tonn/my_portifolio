@@ -1,6 +1,6 @@
-import { ThemeToggle } from "../components/ThemeToggle";
-import { NeuronBackground } from "../components/NeuronBackground";
-import { Navbar } from "../components/Navbar";
+import { ThemeToggle } from "../components/ui/ThemeToggle";
+import { NeuronBackground } from "../components/ui/NeuronBackground";
+import { Navbar } from "../components/layout/Navbar";
 
 export const NotFound = () => {
     return (
