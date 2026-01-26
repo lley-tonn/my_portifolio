@@ -1,5 +1,5 @@
 import { useParams, useNavigate } from 'react-router-dom';
-import { FooterSection } from '../components/FooterSection';
+import { FooterSection } from '../components/layout/FooterSection';
 
 // Project data - same as in ProjectsSection
 const projectsData = [

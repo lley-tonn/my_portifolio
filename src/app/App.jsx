@@ -1,8 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Home } from "./pages/Home";
-import { NotFound } from "./pages/NotFound";
-import { ProjectDetail } from "./pages/ProjectDetail";
-import { useTheme } from "./lib/useTheme";
+import { Home } from "../pages/Home";
+import { NotFound } from "../pages/NotFound";
+import { ProjectDetail } from "../pages/ProjectDetail";
+import { useTheme } from "../hooks/useTheme";
 
 
 function App() {
