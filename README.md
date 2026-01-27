@@ -20,7 +20,7 @@ A modern, responsive portfolio website showcasing my work as a software develope
 
 ## Features
 
-- **Construction Notice**: Dismissible modal notification informing visitors the site is under active development
+- **Construction Notice**: Center-aligned dismissible modal with glassmorphic design, informing visitors the site is under active development (first visit only, localStorage persistence)
 - **Dark/Light Mode**: Theme toggle with system preference detection and local storage persistence
 - **Responsive Design**: Fully optimized for desktop, tablet, and mobile devices
 - **Glassmorphic UI**: Premium frosted glass navbar with backdrop blur effects
@@ -143,10 +143,12 @@ App (Root)
 #### Construction Notice State (`ConstructionNotice` component)
 - **Storage**: localStorage (`construction-notice-dismissed` key)
 - **Values**: `"true"` (dismissed) or `null` (not dismissed)
-- **Display Logic**: Shows modal overlay on first visit only
+- **Display Logic**: Shows centered modal overlay on first visit only
+- **Layout**: Vertically centered content with icon, title, description, and feature list
 - **Persistence**: Once dismissed, never shows again (per browser/device)
 - **Timing**: 500ms delay after page load for smooth appearance
 - **Dismissal**: Click anywhere on backdrop, X button, or "Continue Browsing" button
+- **Animations**: Fade-in on appearance (300ms), fade-out on dismiss (300ms)
 
 #### Theme State (`useTheme` hook)
 - **Storage**: localStorage (`theme` key)
@@ -278,16 +280,23 @@ If dismissed → Skip notice
 ```
 User sees construction notice modal
                  ↓
-Modal appears with fade-in animation
+Modal appears with fade-in animation (500ms delay)
                  ↓
 Backdrop blur applied to background
+                 ↓
+Centered modal displays:
+├── Wrench icon (pulsing animation) at top
+├── "Site Under Construction" title + alert icon
+├── Welcome message
+├── Feature list (3 bullet points, center-aligned)
+└── "Continue Browsing" button
                  ↓
 User reads information about site status
                  ↓
 User dismisses via:
-├── Click backdrop
-├── Click X button
-└── Click "Continue Browsing" button
+├── Click backdrop (anywhere outside modal)
+├── Click X button (top-right corner)
+└── Click "Got it, Continue Browsing" button
                  ↓
 Fade-out animation plays (300ms)
                  ↓
@@ -475,7 +484,33 @@ Serves the production build locally for testing before deployment.
 
 ### Managing the Construction Notice
 
-The construction notice is a modal that informs visitors the site is under active development.
+The construction notice is a center-aligned modal that informs visitors the site is under active development.
+
+**Design & Layout:**
+- **Centered content**: All text and elements are vertically and horizontally centered
+- **Icon positioning**: Wrench icon with pulse animation at the top center
+- **Vertical layout**: Icon → Title → Description → Feature list → CTA button
+- **Glassmorphic design**: Matches the portfolio's premium aesthetic
+- **Backdrop blur**: Semi-transparent overlay for focus
+- **Responsive**: Adapts to all screen sizes (90% width, max 512px)
+
+**Visual Hierarchy:**
+```
+        🔧 (Wrench icon - pulsing)
+
+Site Under Construction ⚠️
+
+Welcome! This portfolio is actively being...
+
+• Contact form functionality is in progress
+• Additional project showcases coming soon
+• Some content and features are being finalized
+
+────────────────────────────────
+Thank you for your patience...
+
+[Got it, Continue Browsing]
+```
 
 **To Clear the Notice (for testing):**
 ```javascript
@@ -492,15 +527,43 @@ localStorage.removeItem('construction-notice-dismissed');
 
 **To Update Notice Content:**
 Edit `/src/components/ui/ConstructionNotice.jsx` to change:
-- Message text
+- Message text and wording
 - List of incomplete features
-- Styling and appearance
-- Timing (currently 500ms delay)
+- Styling and appearance (colors, spacing, animations)
+- Timing (currently 500ms delay on appearance)
+- Layout (currently center-aligned with vertical stacking)
+
+**Customization Examples:**
+
+*Change the delay timing:*
+```javascript
+// Line 13 in ConstructionNotice.jsx
+setTimeout(() => setIsVisible(true), 500); // Change 500 to desired ms
+```
+
+*Modify the feature list:*
+```javascript
+// Lines 78-90 in ConstructionNotice.jsx
+<div className="space-y-3 text-sm text-foreground/70">
+    <div className="flex items-center justify-center gap-2">
+        <span className="text-primary">•</span>
+        <span>Your custom feature message</span>
+    </div>
+    // Add more items as needed
+</div>
+```
+
+*Change button text:*
+```javascript
+// Line 109 in ConstructionNotice.jsx
+Got it, Continue Browsing // Change to your preferred text
+```
 
 **LocalStorage Key:**
 - Key: `construction-notice-dismissed`
 - Value: `"true"` when dismissed
 - Scope: Per browser/device
+- Persistence: Permanent until cleared manually
 
 ## Development Guidelines
 
@@ -618,7 +681,13 @@ Multi-layer gradient backgrounds for cinematic depth:
 --z-neuron: 0            /* Neuron network layer */
 --z-content: 1           /* Main content */
 --z-navbar: 9999         /* Always on top */
+
+Custom Component Z-indexes:
+9998  /* ConstructionNotice backdrop */
+9999  /* ConstructionNotice modal (above navbar) */
 ```
+
+**Note:** The construction notice uses z-index 9998-9999 to ensure it appears above all other content, including the navbar (z-9999), for critical first-visit messaging.
 
 ### Animation Tokens
 
@@ -629,6 +698,15 @@ Multi-layer gradient backgrounds for cinematic depth:
 | `fade-in` | 0.7s | ease-out | Content reveal |
 | `gradient` | 8s | ease-in-out | Animated gradients |
 | `blink` | 1s | step-end | Cursor blink |
+| `pulse` | Native | - | Construction notice wrench icon |
+
+**Component-Specific Animations:**
+
+**ConstructionNotice:**
+- **Appearance**: 500ms delay → fade-in with scale (0.95 to 1.0) over 300ms
+- **Dismissal**: Fade-out with scale (1.0 to 0.95) over 300ms
+- **Icon**: Wrench icon uses Tailwind's `animate-pulse` utility
+- **Backdrop**: Fade-in/out synchronized with modal
 
 ### Typography Scale
 
@@ -645,6 +723,42 @@ lg: 1024px   /* Desktop */
 xl: 1280px   /* Large desktop */
 2xl: 1536px  /* Extra large */
 ```
+
+### Component Design Patterns
+
+#### Construction Notice Modal
+
+**Layout Strategy:**
+- **Center-aligned vertical layout** - All content flows top to bottom
+- **Maximum width**: 512px (ensures readability on all devices)
+- **Responsive width**: 90% of viewport on smaller screens
+- **Vertical centering**: `top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2`
+- **Content spacing**: 1.5rem (24px) gap between sections
+
+**Visual Hierarchy:**
+1. **Icon** (Top) - Wrench icon with pulse animation, primary brand color
+2. **Heading** (Center) - 2xl bold font with inline alert icon
+3. **Description** (Center) - 80% opacity foreground color
+4. **Feature List** (Center) - Bullet points with primary accent color
+5. **Divider** - Subtle border to separate content from action
+6. **Thank You Message** (Center) - Small, muted text
+7. **CTA Button** (Full width) - Primary color, prominent call-to-action
+
+**Glassmorphism Implementation:**
+```css
+bg-card/95              /* 95% opacity card background */
+backdrop-blur-xl        /* Extra large backdrop blur */
+border-primary/40       /* 40% opacity primary border */
+rounded-2xl             /* Large rounded corners */
+shadow-2xl              /* Extra large shadow for depth */
+```
+
+**Accessibility Features:**
+- Close button with `aria-label`
+- Keyboard focus states with ring indicators
+- Click-outside-to-dismiss for intuitive UX
+- High contrast text for readability
+- Semantic HTML structure
 
 ## Performance Optimizations
 
