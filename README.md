@@ -20,6 +20,7 @@ A modern, responsive portfolio website showcasing my work as a software develope
 
 ## Features
 
+- **Construction Notice**: Dismissible modal notification informing visitors the site is under active development
 - **Dark/Light Mode**: Theme toggle with system preference detection and local storage persistence
 - **Responsive Design**: Fully optimized for desktop, tablet, and mobile devices
 - **Glassmorphic UI**: Premium frosted glass navbar with backdrop blur effects
@@ -105,6 +106,7 @@ App (Root)
 ├── BrowserRouter
 │   └── Routes
 │       ├── Route: Home (/)
+│       │   ├── ConstructionNotice (Modal overlay - first visit only)
 │       │   ├── ThemeToggle (Fixed positioning)
 │       │   ├── NeuronBackground (Dark mode only)
 │       │   ├── Navbar
@@ -138,6 +140,14 @@ App (Root)
 
 ### State Management
 
+#### Construction Notice State (`ConstructionNotice` component)
+- **Storage**: localStorage (`construction-notice-dismissed` key)
+- **Values**: `"true"` (dismissed) or `null` (not dismissed)
+- **Display Logic**: Shows modal overlay on first visit only
+- **Persistence**: Once dismissed, never shows again (per browser/device)
+- **Timing**: 500ms delay after page load for smooth appearance
+- **Dismissal**: Click anywhere on backdrop, X button, or "Continue Browsing" button
+
 #### Theme State (`useTheme` hook)
 - **Storage**: localStorage (`theme` key)
 - **Values**: `"light"`, `"dark"`, or `null` (system preference)
@@ -152,6 +162,7 @@ App (Root)
 - **Performance**: Efficient, no scroll event listeners
 
 #### Local Component State
+- ConstructionNotice: `isVisible`, `isClosing`
 - Navbar: `isScrolled`, `isMobileMenuOpen`
 - ProjectsSection: `currentSlide`, `isAutoPlaying`
 - ContactSection: Form field values
@@ -194,6 +205,7 @@ my_portifolio/
 │   │   │   └── ContactSection.jsx    # Contact form
 │   │   │
 │   │   └── ui/                  # Reusable UI primitives
+│   │       ├── ConstructionNotice.jsx # Site construction modal
 │   │       ├── ThemeToggle.jsx      # Dark/light mode toggle
 │   │       └── NeuronBackground.jsx # Canvas animation
 │   │
@@ -254,9 +266,39 @@ React app initializes at main.jsx
 App.jsx sets up routing
                  ↓
 Home page renders with all sections
+                 ↓
+Check localStorage for construction-notice-dismissed
+                 ↓
+If NOT dismissed → Show construction notice (500ms delay)
+If dismissed → Skip notice
 ```
 
-### 2. Theme Toggle Flow
+### 2. Construction Notice Flow
+
+```
+User sees construction notice modal
+                 ↓
+Modal appears with fade-in animation
+                 ↓
+Backdrop blur applied to background
+                 ↓
+User reads information about site status
+                 ↓
+User dismisses via:
+├── Click backdrop
+├── Click X button
+└── Click "Continue Browsing" button
+                 ↓
+Fade-out animation plays (300ms)
+                 ↓
+localStorage.setItem("construction-notice-dismissed", "true")
+                 ↓
+Modal removed from DOM
+                 ↓
+Notice never shows again (this browser/device)
+```
+
+### 3. Theme Toggle Flow
 
 ```
 User clicks theme toggle button
@@ -274,7 +316,7 @@ CSS variables update automatically
 All components re-render with new theme
 ```
 
-### 3. Navigation Flow
+### 4. Navigation Flow
 
 ```
 User scrolls page OR clicks nav link
@@ -292,7 +334,7 @@ Smooth scroll to section (#id)
 Navbar collapses (if mobile)
 ```
 
-### 4. Project Interaction Flow
+### 5. Project Interaction Flow
 
 ```
 User lands on ProjectsSection
@@ -314,7 +356,7 @@ User clicks "Back to Projects"
 window.history.back() returns to previous page
 ```
 
-### 5. Mobile Menu Flow
+### 6. Mobile Menu Flow
 
 ```
 User on mobile device
@@ -332,7 +374,7 @@ User clicks nav link
 Scroll to section + menu closes automatically
 ```
 
-### 6. Contact Form Flow (Future Enhancement)
+### 7. Contact Form Flow (Future Enhancement)
 
 ```
 User fills contact form
@@ -349,7 +391,7 @@ Success: Show confirmation message
 Error: Show error message + retry
 ```
 
-### 7. Error Handling Flow
+### 8. Error Handling Flow
 
 ```
 User navigates to invalid project ID
@@ -430,6 +472,35 @@ npm run preview
 ```
 
 Serves the production build locally for testing before deployment.
+
+### Managing the Construction Notice
+
+The construction notice is a modal that informs visitors the site is under active development.
+
+**To Clear the Notice (for testing):**
+```javascript
+// In browser console:
+localStorage.removeItem('construction-notice-dismissed');
+// Refresh page to see notice again
+```
+
+**To Disable the Notice:**
+```javascript
+// Remove or comment out in src/pages/Home.jsx:
+<ConstructionNotice />
+```
+
+**To Update Notice Content:**
+Edit `/src/components/ui/ConstructionNotice.jsx` to change:
+- Message text
+- List of incomplete features
+- Styling and appearance
+- Timing (currently 500ms delay)
+
+**LocalStorage Key:**
+- Key: `construction-notice-dismissed`
+- Value: `"true"` when dismissed
+- Scope: Per browser/device
 
 ## Development Guidelines
 
