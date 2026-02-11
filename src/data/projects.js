@@ -32,50 +32,52 @@ export const projects = [
     },
     {
         id: 2,
-        slug: "giannifit",
-        title: "GianniFit",
-        tagline: "Modern fitness brand website built for performance and conversions.",
-        description: "Modern fitness brand website built for performance and conversions.",
-        fullDescription: "GianniFit is a modern fitness brand website designed to showcase training programs, capture leads, and drive online sales through a clean, mobile-first experience. Built with Next.js, React, and Tailwind CSS, the site features secure payment processing through Stripe and a scalable backend powered by Supabase.",
-        image: "/screenshots/giannifit.jpg",
-        technologies: ["Next.js", "React", "Tailwind CSS", "Stripe", "Supabase"],
+        slug: "gianni",
+        title: "Gianni",
+        tagline: "Modern fashion discovery platform built for personalization and conversion.",
+        description: "Modern fashion discovery platform built for personalization and conversion.",
+        fullDescription: "Gianni is a fashion discovery web application designed to help users recreate and refine their personal style. Users can upload outfit photos or describe a look they want to achieve, and Gianni analyzes the style, breaks down each piece, and provides curated shopping options to bring the outfit to life. Built with Next.js, TypeScript, and Tailwind CSS, the platform follows a clean, scalable architecture with Supabase handling authentication, database management, and storage. Stripe powers subscription payments, enabling a recurring revenue model. The system is optimized for performance, modularity, and future feature expansion.",
+        image: "/screenshots/gianni.jpg",
+        technologies: ["Next.js", "TypeScript", "Tailwind CSS", "Stripe", "Supabase"],
         link: null,
         liveUrl: "https://giannifit.shop",
         features: [
-            "Secure checkout flow",
-            "Fully responsive design",
-            "SEO-optimized pages",
-            "Scalable backend architecture",
-            "Clean conversion-focused UI"
+            "AI-powered outfit analysis",
+            "Personalized style recommendations",
+            "Curated shopping options",
+            "Subscription-based payments",
+            "Secure authentication flow",
+            "Fully responsive design"
         ],
-        challenges: "Integrating Stripe for secure payments while maintaining a seamless user experience required careful handling of payment states and error scenarios. Optimizing for both desktop and mobile while achieving high Lighthouse scores demanded meticulous attention to performance metrics.",
-        learnings: "Deepened expertise in performance optimization techniques, payment gateway integration, and building mobile-first responsive interfaces that convert visitors into customers.",
+        challenges: "Building an intelligent style analysis system that accurately breaks down outfits and matches pieces to shopping options required careful integration of AI capabilities. Implementing a subscription model with Stripe while maintaining a seamless user experience demanded meticulous attention to payment flows and state management.",
+        learnings: "Deepened expertise in AI-powered feature development, subscription payment systems, and building personalized user experiences that drive engagement and conversion.",
         metrics: {
             lighthouse: "95+",
             loadTime: "< 1.5s",
             seo: "98",
             accessibility: "100"
         },
-        overview: "GianniFit is a modern fitness brand website designed to showcase training programs, capture leads, and drive online sales through a clean, mobile-first experience.",
+        overview: "Gianni is a fashion discovery web application designed to help users recreate and refine their personal style. Users can upload outfit photos or describe a look they want to achieve, and Gianni analyzes the style, breaks down each piece, and provides curated shopping options to bring the outfit to life.",
         problem: [
-            "No strong digital presence",
-            "Poor mobile optimization",
-            "No seamless online payment integration",
-            "Limited performance optimization"
+            "Difficulty recreating outfits seen online or in real life",
+            "Time-consuming manual search for matching pieces",
+            "Lack of personalized fashion recommendations",
+            "No unified platform for style discovery and shopping"
         ],
         solution: [
-            "Built a mobile-first responsive UI",
-            "Integrated Stripe for secure payments",
-            "Used Supabase for scalable backend functionality",
-            "Optimized for performance and SEO"
+            "Built AI-powered outfit analysis and breakdown",
+            "Integrated curated shopping recommendations",
+            "Implemented Stripe for subscription payments",
+            "Used Supabase for auth, database, and storage",
+            "Optimized for performance and scalability"
         ],
         seo: {
-            title: "GianniFit – Fitness Website Project | Agenorwoth Adrian",
-            description: "Case study of GianniFit, a modern fitness website built using Next.js, Stripe, and Supabase. Designed for performance, scalability, and conversions.",
+            title: "Gianni – Fashion Discovery Platform | Agenorwoth Adrian",
+            description: "Case study of Gianni, a modern fashion discovery platform built using Next.js, TypeScript, Stripe, and Supabase. Designed for personalization and conversion.",
             openGraph: {
-                title: "GianniFit – Fitness Website Project | Agenorwoth Adrian",
-                description: "Case study of GianniFit, a modern fitness website built using Next.js, Stripe, and Supabase. Designed for performance, scalability, and conversions.",
-                url: "/projects/giannifit",
+                title: "Gianni – Fashion Discovery Platform | Agenorwoth Adrian",
+                description: "Case study of Gianni, a modern fashion discovery platform built using Next.js, TypeScript, Stripe, and Supabase. Designed for personalization and conversion.",
+                url: "/projects/gianni",
                 type: "website"
             }
         }
