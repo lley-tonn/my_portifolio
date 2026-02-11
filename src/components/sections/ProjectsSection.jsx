@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { ExternalLink, Github, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { ExternalLink, Github, ChevronLeft, ChevronRight, FileText } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { projects } from '@/data/projects';
 
 // 3D Card Component with visionOS aesthetics
 const Card3D = ({ project, position, isActive, onClick, onMouseEnter, onMouseLeave }) => {
@@ -188,9 +190,9 @@ const ProjectDetailModal = ({ project, onClose }) => {
                     </div>
 
                     <div className="flex flex-col sm:flex-row gap-3 pt-4">
-                        {project.link && project.link !== '#' && (
+                        {project.liveUrl && (
                             <a
-                                href={project.link}
+                                href={project.liveUrl}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="flex items-center justify-center gap-2 px-6 py-3 rounded-xl
@@ -198,21 +200,33 @@ const ProjectDetailModal = ({ project, onClose }) => {
                                            hover:shadow-[0_0_25px_rgba(255,107,53,0.5)]
                                            transition-all duration-300"
                             >
-                                <Github className="w-5 h-5" />
-                                <span>View on GitHub</span>
+                                <ExternalLink className="w-5 h-5" />
+                                <span>Live Site</span>
                             </a>
                         )}
-                        {project.liveUrl && (
-                            <a
-                                href={project.liveUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
+                        {project.slug && (
+                            <Link
+                                to={`/projects/${project.slug}`}
                                 className="flex items-center justify-center gap-2 px-6 py-3 rounded-xl
                                            bg-card/80 border-2 border-primary/40 text-primary font-semibold
                                            hover:bg-primary/15 transition-all duration-300"
+                                onClick={onClose}
                             >
-                                <ExternalLink className="w-5 h-5" />
-                                <span>Live Demo</span>
+                                <FileText className="w-5 h-5" />
+                                <span>Case Study</span>
+                            </Link>
+                        )}
+                        {project.link && project.link !== '#' && (
+                            <a
+                                href={project.link}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex items-center justify-center gap-2 px-6 py-3 rounded-xl
+                                           bg-card/80 border-2 border-foreground/20 text-foreground font-semibold
+                                           hover:bg-foreground/10 transition-all duration-300"
+                            >
+                                <Github className="w-5 h-5" />
+                                <span>GitHub</span>
                             </a>
                         )}
                     </div>
@@ -223,48 +237,6 @@ const ProjectDetailModal = ({ project, onClose }) => {
 };
 
 export const ProjectsSection = () => {
-    const projects = [
-        {
-            id: 1,
-            title: "CinQ",
-            description: "Event Management App",
-            fullDescription: "A comprehensive event management application built with React and Node.js. Features include event creation, ticket management, attendee tracking, and real-time notifications.",
-            image: "/screenshots/CinQ.jpg",
-            technologies: ["React", "Node.js", "MongoDB", "Express", "Socket.io"],
-            link: "#",
-            liveUrl: null
-        },
-        {
-            id: 2,
-            title: "Project 2",
-            description: "Coming soon - screenshot to be added",
-            fullDescription: "More details coming soon.",
-            image: null,
-            technologies: ["TBD"],
-            link: "#",
-            liveUrl: null
-        },
-        {
-            id: 3,
-            title: "Project 3",
-            description: "Coming soon - screenshot to be added",
-            fullDescription: "More details coming soon.",
-            image: null,
-            technologies: ["TBD"],
-            link: "#",
-            liveUrl: null
-        },
-        {
-            id: 4,
-            title: "Project 4",
-            description: "Coming soon - screenshot to be added",
-            fullDescription: "More details coming soon.",
-            image: null,
-            technologies: ["TBD"],
-            link: "#",
-            liveUrl: null
-        }
-    ];
 
     const [activeIndex, setActiveIndex] = useState(0);
     const [detailProject, setDetailProject] = useState(null);
