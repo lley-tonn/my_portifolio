@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Home } from "../pages/Home";
 import { NotFound } from "../pages/NotFound";
 import { ProjectDetail } from "../pages/ProjectDetail";
+import { Messages } from "../pages/Messages";
 import { useTheme } from "../hooks/useTheme";
 
 
@@ -17,6 +18,7 @@ function App() {
           {/* Support both slug-based and ID-based routes */}
           <Route path="projects/:slug" element={<ProjectDetail />} />
           <Route path="project/:projectId" element={<ProjectDetail />} />
+          <Route path="lleyton/messages" element={<Messages />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

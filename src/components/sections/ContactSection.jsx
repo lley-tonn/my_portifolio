@@ -1,5 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { db } from "@/lib/firebase";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import {
   faGithub,
   faTwitter,
@@ -92,22 +94,22 @@ export const ContactSection = () => {
     e.preventDefault();
     setIsSubmitting(true);
     setResponse("");
-
+  
     try {
-      setTimeout(() => {
-        setResponse("success");
-        setFormData({ name: "", email: "", message: "" });
-        setIsSubmitting(false);
-
-        // Clear success message after 5 seconds
-        setTimeout(() => setResponse(""), 5000);
-      }, 1500);
-    } catch {
+      await addDoc(collection(db, "messages"), {
+        name: formData.name,
+        email: formData.email,
+        message: formData.message,
+        createdAt: serverTimestamp(),
+      });
+  
+      setResponse("success");
+      setFormData({ name: "", email: "", message: "" });
+    } catch (err) {
+      console.error(err);
       setResponse("error");
+    } finally {
       setIsSubmitting(false);
-
-      // Clear error message after 5 seconds
-      setTimeout(() => setResponse(""), 5000);
     }
   };
 
