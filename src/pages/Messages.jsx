@@ -3,10 +3,9 @@ import { ThemeToggle } from "../components/ui/ThemeToggle";
 import { NeuronBackground } from "../components/ui/NeuronBackground";
 import { Navbar } from "../components/layout/Navbar";
 import { cn } from "@/lib/utils";
-import { db } from "@/lib/firebase";
+import { db, auth } from "@/lib/firebase";
 import { collection, getDocs, orderBy, query } from "firebase/firestore";
 import { signInWithEmailAndPassword, onAuthStateChanged, signOut } from "firebase/auth";
-import { auth } from "@/lib/firebase";
 
 export const Messages = () => {
   const [messages, setMessages] = useState([]);
@@ -17,16 +16,23 @@ export const Messages = () => {
   const [error, setError] = useState("");
   const [loggingIn, setLoggingIn] = useState(false);
 
+  const firebaseConfigured = auth !== null && db !== null;
+
   useEffect(() => {
+    if (!firebaseConfigured) {
+      setLoading(false);
+      return;
+    }
     const unsub = onAuthStateChanged(auth, (u) => {
       setUser(u);
       setLoading(false);
     });
     return () => unsub();
-  }, []);
+  }, [firebaseConfigured]);
 
   const handleAdminLogin = async (e) => {
     e.preventDefault();
+    if (!auth) return;
     setError("");
     setLoggingIn(true);
     try {
@@ -39,11 +45,12 @@ export const Messages = () => {
   };
 
   const handleSignOut = async () => {
+    if (!auth) return;
     await signOut(auth);
   };
 
   useEffect(() => {
-    if (!user) return;
+    if (!user || !db) return;
 
     const fetchMessages = async () => {
       try {
@@ -76,6 +83,31 @@ export const Messages = () => {
         <Navbar />
         <main className="container mx-auto px-4 pt-32 pb-16 flex items-center justify-center">
           <p className="text-foreground/70">Loading...</p>
+        </main>
+      </div>
+    );
+  }
+
+  if (!firebaseConfigured) {
+    return (
+      <div className="min-h-screen text-foreground overflow-x-hidden relative">
+        <ThemeToggle />
+        <NeuronBackground />
+        <Navbar />
+        <main className="container mx-auto px-4 pt-32 pb-16">
+          <section
+            className="relative max-w-md mx-auto rounded-3xl border border-border/40 bg-card/80 dark:bg-card/40
+                       backdrop-blur-xl shadow-xl overflow-hidden"
+          >
+            <div className="px-6 sm:px-10 py-6 sm:py-8 text-center">
+              <h1 className="text-2xl font-bold tracking-tight mb-4">
+                Configuration <span className="text-primary">Error</span>
+              </h1>
+              <p className="text-foreground/70">
+                Firebase is not configured. Please set up your environment variables.
+              </p>
+            </div>
+          </section>
         </main>
       </div>
     );
