@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { lazy, Suspense, Component } from "react";
+import { Analytics } from "@vercel/analytics/react";
 import { Home } from "../pages/Home";
 import { NotFound } from "../pages/NotFound";
 import { ProjectDetail } from "../pages/ProjectDetail";
@@ -50,6 +51,7 @@ function App() {
 
   return (
     <>
+      <Analytics />
       <BrowserRouter>
         <Routes>
           <Route index element={<Home />} />
